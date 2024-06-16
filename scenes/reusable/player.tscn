@@ -1,9 +1,26 @@
-[gd_scene load_steps=16 format=3 uid="uid://tkgv3h3sywn1"]
+[gd_scene load_steps=22 format=3 uid="uid://tkgv3h3sywn1"]
 
 [ext_resource type="Script" path="res://scripts/controller.gd" id="1_g2unk"]
 [ext_resource type="Texture2D" uid="uid://ctrmlynlhvhuc" path="res://assets/sprites/Sprite-0001-Sheet.png" id="2_et52p"]
+[ext_resource type="Texture2D" uid="uid://cjh5a1ff7vve7" path="res://assets/sprites/Sprite-0004-export.png" id="2_ysigi"]
 [ext_resource type="Texture2D" uid="uid://cwxyx8x3qvvuc" path="res://assets/sprites/Sprite-0002-export.png" id="3_5n15m"]
 [ext_resource type="Texture2D" uid="uid://cg8i4g1se77yd" path="res://assets/sprites/Sprite-0003-export.png" id="3_tkkra"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_te7bf"]
+atlas = ExtResource("2_ysigi")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_210o3"]
+atlas = ExtResource("2_ysigi")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r8qeu"]
+atlas = ExtResource("2_ysigi")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3tl8k"]
+atlas = ExtResource("2_ysigi")
+region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l3mk4"]
 atlas = ExtResource("3_tkkra")
@@ -43,6 +60,23 @@ region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1lka1"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_te7bf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_210o3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r8qeu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3tl8k")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_l3mk4")
@@ -95,15 +129,32 @@ animations = [{
 radius = 27.0
 height = 123.0
 
-[node name="player" type="CharacterBody2D"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ufq3f"]
+radius = 2.25
+height = 7.0
+
+[node name="player" type="CharacterBody2D" groups=["player"]]
+collision_layer = 2
 script = ExtResource("1_g2unk")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 scale = Vector2(8, 8)
 sprite_frames = SubResource("SpriteFrames_1lka1")
-animation = &"jump"
+animation = &"attack"
 autoplay = "idle"
+frame = 3
+frame_progress = 1.0
 
 [node name="hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, 0.5)
 shape = SubResource("CapsuleShape2D_v4dux")
+
+[node name="atk_area" type="Area2D" parent="."]
+position = Vector2(60, -30)
+scale = Vector2(8, 8)
+collision_mask = 2
+
+[node name="atk_hitbox" type="CollisionShape2D" parent="atk_area"]
+shape = SubResource("CapsuleShape2D_ufq3f")
+debug_color = Color(0.7, 0.606667, 0, 0.419608)
+
+[connection signal="body_entered" from="atk_area" to="." method="_on_atk_entered"]

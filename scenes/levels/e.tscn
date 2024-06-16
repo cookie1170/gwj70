@@ -1,0 +1,78 @@
+[gd_scene load_steps=13 format=3 uid="uid://cvsmqoypsg30s"]
+
+[ext_resource type="PackedScene" uid="uid://tkgv3h3sywn1" path="res://scenes/reusable/player.tscn" id="1_2n45e"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_s5u4d"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="3_jsnd8"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_6sxv4"]
+[ext_resource type="Texture2D" uid="uid://bspxaqvsgmpsl" path="res://icon.svg" id="5_ggj1n"]
+[ext_resource type="Texture2D" uid="uid://dwwyxq1knic5" path="res://assets/sprites/Sprite-0005.png" id="6_qmkdu"]
+[ext_resource type="PackedScene" uid="uid://b1of8vehbfmeq" path="res://scenes/reusable/enemy.tscn" id="7_g4fwv"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_cd627"]
+
+[sub_resource type="Resource" id="Resource_vvpjj"]
+script = ExtResource("4_6sxv4")
+duration = 1.0
+transition = 0
+ease = 2
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k0oqk"]
+texture = ExtResource("6_qmkdu")
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSet" id="TileSet_bwtmp"]
+physics_layer_0/collision_layer = 1
+navigation_layer_0/layers = 1
+sources/0 = SubResource("TileSetAtlasSource_k0oqk")
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_t5omd"]
+vertices = PackedVector2Array(908, -380, 908, 172, -144, 159, -135, -384)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(918, -390, 918, 183, -155, 169, -145, -395)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[node name="e" type="Node2D"]
+
+[node name="player" parent="." instance=ExtResource("1_2n45e")]
+position = Vector2(-3, -100)
+
+[node name="enemy" parent="." node_paths=PackedStringArray("target") instance=ExtResource("7_g4fwv")]
+position = Vector2(730, -178)
+target = NodePath("../player")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(397, -100)
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
+script = ExtResource("2_s5u4d")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("WorldBoundaryShape2D_cd627")
+
+[node name="PhantomCamera2D" type="Node2D" parent="." node_paths=PackedStringArray("follow_target")]
+position = Vector2(397, -100)
+script = ExtResource("3_jsnd8")
+follow_mode = 5
+follow_target = NodePath("../player")
+tween_resource = SubResource("Resource_vvpjj")
+follow_offset = Vector2(400, 0)
+follow_damping = true
+follow_damping_value = Vector2(0.2, 0.2)
+dead_zone_width = 0.3
+dead_zone_height = 0.4
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(184, -14)
+texture = ExtResource("5_ggj1n")
+
+[node name="TileMap" type="TileMap" parent="."]
+scale = Vector2(4, 4)
+tile_set = SubResource("TileSet_bwtmp")
+format = 2
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_t5omd")
