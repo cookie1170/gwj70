@@ -2,8 +2,6 @@ extends CharacterBody2D
 
 #literally just copy pasted this from a yt tutorial
 
-@export var target: Node2D
-
 var speed = 300
 var acceleration = 7
 var attacking = false
@@ -11,6 +9,7 @@ var attacking = false
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 @onready var sprite = $sprite
 @onready var atk_area = $atk_area
+@onready var target = get_tree().get_first_node_in_group("player")
 
 func _ready():
 	remove_child(atk_area)
@@ -54,6 +53,7 @@ func _on_timer_timeout():
 	
 func get_hit():
 	queue_free()
+	Dialogic.start("timeline")
 
 func _on_atk_entered(body):
 	body.get_hit()

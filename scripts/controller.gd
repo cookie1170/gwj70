@@ -2,17 +2,19 @@ extends CharacterBody2D
 
 @onready var sprite = $Smoothing2D/sprite
 @onready var atk_area = $atk_area
+@onready var coyote_timer = $coyote_timer
 
-var speed = 450.0
-var jump_velocity = -900.0
-var accel = 25
-var decel = 40
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var jumped = false
-var released_jump = false
-var j_buffered = false
-var attacking = false
+var speed: float = 450.0
+var jump_velocity: float = -900.0
+var accel: float = 25
+var decel: float = 40
+var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
+var jumped: bool = false
+var released_jump: bool = false
+var j_buffered: bool = false
+var attacking: bool = false
 var cam_offset: float = 400.0
+var jump_available: bool = true
 
 
 func _ready():
@@ -31,11 +33,12 @@ func _physics_process(delta):
 	# gravity
 	if not is_on_floor():
 		velocity.y += gravity * delta
-	
+		if coyote_timer.is_stopped():
+			coyote_timer.start()
 	
 	#jump spaghetti don't look at this please i'm begging you
 	if Input.is_action_just_pressed("jump") or j_buffered and Input.is_action_pressed("jump"):
-		if is_on_floor():
+		if jump_available:
 			velocity.y = jump_velocity
 			jumped = true
 			if not attacking:
@@ -50,6 +53,8 @@ func _physics_process(delta):
 		gravity *= 2.5
 	if is_on_floor():
 		gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+		jump_available = true
+		coyote_timer.stop()
 	if velocity.y >= 0:
 		jumped = false
 
@@ -93,3 +98,7 @@ func change_offset(offset: float):
 
 func get_hit():
 	get_tree().reload_current_scene()
+
+
+func on_coyote_timeout():
+	jump_available = false
