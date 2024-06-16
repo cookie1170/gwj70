@@ -1,20 +1,18 @@
 extends CharacterBody2D
 
+@onready var sprite = $Smoothing2D/sprite
+@onready var atk_area = $atk_area
 
 var speed = 450.0
 var jump_velocity = -900.0
 var accel = 25
 var decel = 40
-
-
-@onready var sprite = $sprite
-@onready var atk_area = $atk_area
-
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var jumped = false
 var released_jump = false
 var j_buffered = false
 var attacking = false
+var cam_offset: float = 400.0
 
 
 func _ready():
@@ -64,9 +62,11 @@ func _physics_process(delta):
 		if direction == -1:
 			sprite.flip_h = true
 			atk_area.position.x = -60
+			change_offset(-400)
 		if direction == 1:
 			sprite.flip_h = false
 			atk_area.position.x = 60
+			change_offset(400)
 		if is_on_floor() and not attacking:
 			sprite.play("run")
 	if !direction:
@@ -77,8 +77,19 @@ func _physics_process(delta):
 	if not is_on_floor() and not jumped and not attacking:
 		sprite.play("fall")
 	
+	$"../PhantomCamera2D".set_follow_offset(Vector2(cam_offset, 0))
+	
 	move_and_slide()
 
 
 func _on_atk_entered(body):
 	body.get_hit()
+
+
+func change_offset(offset: float):
+	await get_tree().create_timer(.2).timeout
+	cam_offset = lerp(cam_offset, offset, 0.025)
+	
+
+func get_hit():
+	get_tree().reload_current_scene()

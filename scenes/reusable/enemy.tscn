@@ -130,11 +130,11 @@ radius = 27.0
 height = 123.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ufq3f"]
-radius = 2.25
-height = 7.0
+radius = 3.25
+height = 8.0
 
 [node name="enemy" type="CharacterBody2D"]
-collision_layer = 2
+collision_layer = 4
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_s4ast")
@@ -150,7 +150,7 @@ frame_progress = 1.0
 
 [node name="hitbox" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_v4dux")
-debug_color = Color(0.7, 0, 0, 0.419608)
+debug_color = Color(0.7, 0.233333, 0, 0.419608)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 debug_enabled = true
@@ -160,7 +160,7 @@ wait_time = 0.1
 autostart = true
 
 [node name="atk_area" type="Area2D" parent="."]
-position = Vector2(60, -30)
+position = Vector2(40, -30)
 scale = Vector2(8, 8)
 collision_mask = 2
 

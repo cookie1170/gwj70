@@ -10,7 +10,7 @@
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_cd627"]
 
-[sub_resource type="Resource" id="Resource_vvpjj"]
+[sub_resource type="Resource" id="Resource_7tdgi"]
 script = ExtResource("4_6sxv4")
 duration = 1.0
 transition = 0
@@ -43,7 +43,9 @@ position = Vector2(730, -178)
 target = NodePath("../player")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(397, -100)
+position = Vector2(397, -124)
+limit_bottom = 200
+editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="Camera2D"]
 script = ExtResource("2_s5u4d")
@@ -54,16 +56,18 @@ script = ExtResource("2_s5u4d")
 shape = SubResource("WorldBoundaryShape2D_cd627")
 
 [node name="PhantomCamera2D" type="Node2D" parent="." node_paths=PackedStringArray("follow_target")]
-position = Vector2(397, -100)
+position = Vector2(397, -124)
 script = ExtResource("3_jsnd8")
 follow_mode = 5
 follow_target = NodePath("../player")
-tween_resource = SubResource("Resource_vvpjj")
+tween_resource = SubResource("Resource_7tdgi")
 follow_offset = Vector2(400, 0)
 follow_damping = true
 follow_damping_value = Vector2(0.2, 0.2)
 dead_zone_width = 0.3
 dead_zone_height = 0.4
+draw_limits = true
+limit_bottom = 200
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(184, -14)
