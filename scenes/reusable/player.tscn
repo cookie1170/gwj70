@@ -1,11 +1,45 @@
-[gd_scene load_steps=23 format=3 uid="uid://tkgv3h3sywn1"]
+[gd_scene load_steps=27 format=3 uid="uid://tkgv3h3sywn1"]
 
 [ext_resource type="Script" path="res://scripts/controller.gd" id="1_g2unk"]
 [ext_resource type="Script" path="res://addons/smoothing/smoothing_2d.gd" id="2_2wm2v"]
 [ext_resource type="Texture2D" uid="uid://ctrmlynlhvhuc" path="res://assets/sprites/Sprite-0001-Sheet.png" id="2_et52p"]
 [ext_resource type="Texture2D" uid="uid://cjh5a1ff7vve7" path="res://assets/sprites/Sprite-0004-export.png" id="2_ysigi"]
-[ext_resource type="Texture2D" uid="uid://cwxyx8x3qvvuc" path="res://assets/sprites/Sprite-0002-export.png" id="3_5n15m"]
 [ext_resource type="Texture2D" uid="uid://cg8i4g1se77yd" path="res://assets/sprites/Sprite-0003-export.png" id="3_tkkra"]
+[ext_resource type="Texture2D" uid="uid://b5bv744gw03tq" path="res://assets/sprites/player_run.png" id="6_17qkr"]
+[ext_resource type="Texture2D" uid="uid://0442sxw8hnd" path="res://assets/sprites/heart_red.png" id="7_6rhae"]
+[ext_resource type="Texture2D" uid="uid://c5uvpaybpqfj4" path="res://assets/sprites/heart_blue.png" id="8_oxuot"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l0cha"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_6rhae")
+}],
+"loop": true,
+"name": &"heart_full",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_6rhae")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_oxuot")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_6rhae")
+}, {
+"duration": 1e+09,
+"texture": ExtResource("8_oxuot")
+}],
+"loop": false,
+"name": &"heart_hit",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v4dux"]
+radius = 27.0
+height = 64.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_te7bf"]
 atlas = ExtResource("2_ysigi")
@@ -47,17 +81,21 @@ region = Rect2(16, 0, 16, 16)
 atlas = ExtResource("3_tkkra")
 region = Rect2(32, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_x5ais"]
-atlas = ExtResource("3_5n15m")
+[sub_resource type="AtlasTexture" id="AtlasTexture_y3hbw"]
+atlas = ExtResource("6_17qkr")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nlo0q"]
-atlas = ExtResource("3_5n15m")
+[sub_resource type="AtlasTexture" id="AtlasTexture_n2q25"]
+atlas = ExtResource("6_17qkr")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rqevd"]
-atlas = ExtResource("3_5n15m")
+[sub_resource type="AtlasTexture" id="AtlasTexture_hnr5v"]
+atlas = ExtResource("6_17qkr")
 region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ckwfc"]
+atlas = ExtResource("6_17qkr")
+region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1lka1"]
 animations = [{
@@ -113,22 +151,21 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_x5ais")
+"texture": SubResource("AtlasTexture_y3hbw")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_nlo0q")
+"texture": SubResource("AtlasTexture_n2q25")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_rqevd")
+"texture": SubResource("AtlasTexture_hnr5v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ckwfc")
 }],
 "loop": true,
 "name": &"run",
 "speed": 5.0
 }]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v4dux"]
-radius = 27.0
-height = 123.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ufq3f"]
 radius = 5.5
@@ -138,19 +175,36 @@ height = 11.0
 collision_layer = 2
 script = ExtResource("1_g2unk")
 
+[node name="heart_1" type="AnimatedSprite2D" parent="."]
+position = Vector2(20, -73)
+sprite_frames = SubResource("SpriteFrames_l0cha")
+animation = &"heart_hit"
+
+[node name="heart_2" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -73)
+sprite_frames = SubResource("SpriteFrames_l0cha")
+animation = &"heart_hit"
+
+[node name="heart_3" type="AnimatedSprite2D" parent="."]
+position = Vector2(-20, -73)
+sprite_frames = SubResource("SpriteFrames_l0cha")
+animation = &"heart_hit"
+
+[node name="hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_v4dux")
+
+[node name="coyote_timer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
 [node name="Smoothing2D" type="Node2D" parent="."]
 script = ExtResource("2_2wm2v")
 
 [node name="sprite" type="AnimatedSprite2D" parent="Smoothing2D"]
-scale = Vector2(8, 8)
+scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_1lka1")
-animation = &"attack"
+animation = &"run"
 autoplay = "idle"
-frame = 3
-frame_progress = 1.0
-
-[node name="hitbox" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_v4dux")
 
 [node name="atk_area" type="Area2D" parent="."]
 position = Vector2(60, -30)
@@ -161,9 +215,5 @@ collision_mask = 4
 shape = SubResource("CapsuleShape2D_ufq3f")
 debug_color = Color(0.7, 0.606667, 0, 0.419608)
 
-[node name="coyote_timer" type="Timer" parent="."]
-wait_time = 0.2
-one_shot = true
-
-[connection signal="body_entered" from="atk_area" to="." method="_on_atk_entered"]
 [connection signal="timeout" from="coyote_timer" to="." method="on_coyote_timeout"]
+[connection signal="body_entered" from="atk_area" to="." method="_on_atk_entered"]

@@ -20,16 +20,16 @@ config/icon="res://gwj icon.svg"
 [autoload]
 
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
+PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
 
 [dialogic]
 
 directories/dch_directory={
-"character": "res://dialogic/character.dch",
-"unit_test_character": "res://Tests/Resources/unit_test_character.dch",
-"you": "res://dialogic/you.dch"
+"narrator": "res://dialogic/narrator.dch",
+"unit_test_character": "res://Tests/Resources/unit_test_character.dch"
 }
 directories/dtl_directory={
-"timeline": "res://dialogic/timeline.dtl"
+"first_choice": "res://dialogic/first_choice.dtl"
 }
 text/letter_speed=0.05
 text/initial_text_reveal_skippable=true

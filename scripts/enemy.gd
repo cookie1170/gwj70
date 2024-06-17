@@ -5,11 +5,13 @@ extends CharacterBody2D
 var speed = 300
 var acceleration = 7
 var attacking = false
+var health = 3
 
-@onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
+@onready var nav_agent: NavigationAgent2D = $nav_agent
 @onready var sprite = $sprite
 @onready var atk_area = $atk_area
 @onready var target = get_tree().get_first_node_in_group("player")
+@onready var hearts = [$heart_1, $heart_2, $heart_3]
 
 func _ready():
 	remove_child(atk_area)
@@ -20,13 +22,15 @@ func attack():
 	await get_tree().create_timer(.4).timeout
 	add_child(atk_area)
 	await sprite.animation_finished
+	if is_instance_valid(atk_area):
+		remove_child(atk_area)
+	await get_tree().create_timer(.8).timeout
 	attacking = false
-	remove_child(atk_area)
 
 func _physics_process(delta):
 	var direction = Vector2.ZERO
 	
-	direction = navigation_agent.get_next_path_position() - global_position
+	direction = nav_agent.get_next_path_position() - global_position
 	direction = direction.normalized()
 	
 	velocity = velocity.lerp(direction * speed, acceleration * delta)
@@ -49,11 +53,18 @@ func _physics_process(delta):
 	move_and_slide()
 
 func _on_timer_timeout():
-	navigation_agent.target_position = target.global_position
+	nav_agent.target_position = target.global_position
 	
 func get_hit():
-	queue_free()
-	Dialogic.start("timeline")
+	health -= 1
+	if health == 0:
+		queue_free()
+	var heart = hearts.front()
+	if is_instance_valid(heart):
+		heart.play("heart_hit")
+	hearts.remove_at(0)
+
 
 func _on_atk_entered(body):
 	body.get_hit()
+	remove_child(atk_area)

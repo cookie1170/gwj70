@@ -3,6 +3,7 @@ extends CharacterBody2D
 @onready var sprite = $Smoothing2D/sprite
 @onready var atk_area = $atk_area
 @onready var coyote_timer = $coyote_timer
+@onready var hearts = [$heart_1, $heart_2, $heart_3]
 
 var speed: float = 450.0
 var jump_velocity: float = -900.0
@@ -15,10 +16,11 @@ var j_buffered: bool = false
 var attacking: bool = false
 var cam_offset: float = 400.0
 var jump_available: bool = true
-
+var health: int = clampi(3, 0, 3)
 
 func _ready():
 	remove_child(atk_area)
+
 
 func attack():
 	attacking = true
@@ -26,7 +28,8 @@ func attack():
 	sprite.play("attack")
 	await sprite.animation_finished
 	attacking = false
-	remove_child(atk_area)
+	if is_instance_valid(atk_area):
+		remove_child(atk_area)
 	
 	
 func _physics_process(delta):
@@ -83,11 +86,13 @@ func _physics_process(delta):
 		sprite.play("fall")
 	
 	$"../PhantomCamera2D".set_follow_offset(Vector2(cam_offset, 0))
-	
+	print(hearts)
+	print(health)
 	move_and_slide()
 
 
 func _on_atk_entered(body):
+	remove_child(atk_area)
 	body.get_hit()
 
 
@@ -97,8 +102,14 @@ func change_offset(offset: float):
 	
 
 func get_hit():
-	get_tree().reload_current_scene()
-
-
+	health -= 1
+	if health == 0:
+		get_tree().reload_current_scene()
+	var heart = hearts.front()
+	if is_instance_valid(heart):
+		heart.play("heart_hit")
+	hearts.remove_at(0)
+	
+	
 func on_coyote_timeout():
 	jump_available = false

@@ -1,11 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://cvsmqoypsg30s"]
+[gd_scene load_steps=15 format=3 uid="uid://cvsmqoypsg30s"]
 
 [ext_resource type="PackedScene" uid="uid://tkgv3h3sywn1" path="res://scenes/reusable/player.tscn" id="1_2n45e"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_s5u4d"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="3_jsnd8"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_6sxv4"]
-[ext_resource type="Texture2D" uid="uid://bspxaqvsgmpsl" path="res://icon.svg" id="5_ggj1n"]
 [ext_resource type="Texture2D" uid="uid://dwwyxq1knic5" path="res://assets/sprites/Sprite-0005.png" id="6_qmkdu"]
+[ext_resource type="Script" path="res://scenes/levels/activate_dialogue.gd" id="6_rf3fa"]
 [ext_resource type="PackedScene" uid="uid://b1of8vehbfmeq" path="res://scenes/reusable/enemy.tscn" id="7_g4fwv"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_cd627"]
@@ -16,10 +16,12 @@ duration = 1.0
 transition = 0
 ease = 2
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_t5omd"]
-vertices = PackedVector2Array(908, -380, 908, 172, -144, 159, -135, -384)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(918, -390, 918, 183, -155, 169, -145, -395)])
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_kpmp1"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_3en1q"]
+vertices = PackedVector2Array(166, 34, 154, 34, 154, 26, 166, 26, 209, -10, -30, -10, -11, -88, 201, -91)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-20, -98, 210.5, -102.25, 224.25, 41.75, -55, 52.5)])
 source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_kin5f"]
@@ -48,7 +50,7 @@ sources/0 = SubResource("TileSetAtlasSource_k0oqk")
 position = Vector2(-3, -100)
 
 [node name="enemy" parent="." instance=ExtResource("7_g4fwv")]
-position = Vector2(730, -178)
+position = Vector2(247, -104)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(397, -124)
@@ -77,14 +79,20 @@ dead_zone_height = 0.4
 draw_limits = true
 limit_bottom = 200
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(184, -14)
-texture = ExtResource("5_ggj1n")
+[node name="activate_dialogue" type="Area2D" parent="."]
+position = Vector2(3922, -101)
+rotation = -1.57079
+collision_mask = 2
+script = ExtResource("6_rf3fa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="activate_dialogue"]
+shape = SubResource("WorldBoundaryShape2D_kpmp1")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
-navigation_polygon = SubResource("NavigationPolygon_t5omd")
+scale = Vector2(4, 4)
+navigation_polygon = SubResource("NavigationPolygon_3en1q")
 
 [node name="TileMap" type="TileMap" parent="NavigationRegion2D"]
-scale = Vector2(4, 4)
 tile_set = SubResource("TileSet_bwtmp")
 format = 2
+layer_0/tile_data = PackedInt32Array(65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 14, 0, 0, 15, 0, 0, 16, 0, 0, 17, 0, 0, 18, 0, 0, 19, 0, 0, 20, 0, 0, 21, 0, 0, 22, 0, 0, 23, 0, 0, 24, 0, 0, 25, 0, 0, 26, 0, 0, 27, 0, 0, 28, 0, 0, 29, 0, 0, 30, 0, 0, 31, 0, 0, 32, 0, 0, 33, 0, 0, 34, 0, 0, 36, 0, 0, 37, 0, 0, 38, 0, 0, 39, 0, 0, 40, 0, 0, 41, 0, 0, 42, 0, 0, 43, 0, 0, 44, 0, 0, 45, 0, 0, 46, 0, 0, 47, 0, 0, 48, 0, 0, 49, 0, 0, 50, 0, 0, 51, 0, 0, 52, 0, 0, 53, 0, 0, 54, 0, 0, 55, 0, 0, 56, 0, 0, 57, 0, 0, 58, 0, 0, 59, 0, 0, 60, 0, 0, 61, 0, 0, 62, 0, 0, 65533, 0, 0, 35, 0, 0, 131069, 0, 0, 196605, 0, 0, 131070, 0, 0, 131071, 0, 0, 65536, 0, 0, 131072, 0, 0, 196607, 0, 0, 65537, 0, 0, 65538, 0, 0, 65540, 0, 0, 65542, 0, 0, 131078, 0, 0, 65544, 0, 0, 65548, 0, 0, 65549, 0, 0, 65554, 0, 0, 65555, 0, 0, 131092, 0, 0, 131093, 0, 0, 65557, 0, 0, 65558, 0, 0, 65547, 0, 0, 65556, 0, 0, 65564, 0, 0, 65565, 0, 0, 65566, 0, 0, 131102, 0, 0, 131101, 0, 0, 65567, 0, 0, 65572, 0, 0, 65573, 0, 0, 65574, 0, 0, 131110, 0, 0, 131111, 0, 0, 65575, 0, 0, 65576, 0, 0, 65577, 0, 0, 65582, 0, 0, 65583, 0, 0, 65584, 0, 0, 131119, 0, 0, 131120, 0, 0, 65587, 0, 0, 65588, 0, 0, 65589, 0, 0, 131125, 0, 0, 65591, 0, 0, 65592, 0, 0, 131128, 0, 0, 65593, 0, 0, 65594, 0, 0, 131131, 0, 0, 65597, 0, 0, 65598, 0, 0)
