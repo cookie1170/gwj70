@@ -197,6 +197,8 @@ shape = SubResource("CapsuleShape2D_v4dux")
 wait_time = 0.2
 one_shot = true
 
+[node name="shoot_cd" type="Timer" parent="."]
+
 [node name="Smoothing2D" type="Node2D" parent="."]
 script = ExtResource("2_2wm2v")
 

@@ -2,8 +2,10 @@ extends CharacterBody2D
 
 @onready var sprite = $Smoothing2D/sprite
 @onready var atk_area = $atk_area
+@onready var atk_hitbox = $atk_area/atk_hitbox
 @onready var coyote_timer = $coyote_timer
 @onready var hearts = [$heart_1, $heart_2, $heart_3]
+@onready var shoot_cd = $shoot_cd
 
 var speed: float = 450.0
 var jump_velocity: float = -900.0
@@ -17,6 +19,8 @@ var attacking: bool = false
 var cam_offset: float = 400.0
 var jump_available: bool = true
 var health: int = clampi(3, 0, 3)
+var on_cd: bool = false
+var arrow = preload("res://scenes/reusable/arrow.tscn")
 
 func _ready():
 	remove_child(atk_area)
@@ -32,6 +36,16 @@ func attack():
 		remove_child(atk_area)
 	
 	
+func shoot():
+	var arrow = arrow.instantiate()
+	arrow.rotation = get_angle_to(get_global_mouse_position())
+	add_child(arrow)
+	print("bruh")
+	on_cd = true
+	shoot_cd.start()
+	await shoot_cd.timeout
+	on_cd = false
+
 func _physics_process(delta):
 	# gravity
 	if not is_on_floor():
@@ -63,6 +77,9 @@ func _physics_process(delta):
 
 	if Input.is_action_just_pressed("attack") and not attacking:
 		attack()
+	
+	if Input.is_action_just_pressed("rmb") and not on_cd:
+		shoot()
 
 	var direction = Input.get_axis("left", "right")
 	if direction:
@@ -86,14 +103,12 @@ func _physics_process(delta):
 		sprite.play("fall")
 	
 	$"../PhantomCamera2D".set_follow_offset(Vector2(cam_offset, 0))
-	print(hearts)
-	print(health)
 	move_and_slide()
 
 
 func _on_atk_entered(body):
-	remove_child(atk_area)
 	body.get_hit()
+	remove_child(atk_hitbox)
 
 
 func change_offset(offset: float):

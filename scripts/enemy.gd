@@ -10,6 +10,7 @@ var health = 3
 @onready var nav_agent: NavigationAgent2D = $nav_agent
 @onready var sprite = $sprite
 @onready var atk_area = $atk_area
+@onready var atk_hitbox = $atk_area/atk_hitbox
 @onready var target = get_tree().get_first_node_in_group("player")
 @onready var hearts = [$heart_1, $heart_2, $heart_3]
 
@@ -67,4 +68,4 @@ func get_hit():
 
 func _on_atk_entered(body):
 	body.get_hit()
-	remove_child(atk_area)
+	remove_child(atk_hitbox)

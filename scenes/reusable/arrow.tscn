@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://t4331kxryunp"]
+
+[ext_resource type="Script" path="res://scripts/arrow.gd" id="1_dte5n"]
+[ext_resource type="Texture2D" uid="uid://dwwyxq1knic5" path="res://assets/sprites/Sprite-0005.png" id="2_w4j00"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1n2bw"]
+
+[node name="arrow" type="RigidBody2D"]
+script = ExtResource("1_dte5n")
+
+[node name="hitbox_area" type="Area2D" parent="."]
+collision_mask = 4
+
+[node name="hitbox" type="CollisionShape2D" parent="hitbox_area"]
+shape = SubResource("CircleShape2D_1n2bw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_w4j00")
+
+[connection signal="body_entered" from="hitbox_area" to="." method="_on_body_entered"]
