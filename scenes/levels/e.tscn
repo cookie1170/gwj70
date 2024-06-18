@@ -1,10 +1,10 @@
 [gd_scene load_steps=15 format=3 uid="uid://cvsmqoypsg30s"]
 
 [ext_resource type="PackedScene" uid="uid://tkgv3h3sywn1" path="res://scenes/reusable/player.tscn" id="1_2n45e"]
-[ext_resource type="PackedScene" uid="uid://dqar6hfwx56ed" path="res://scenes/reusable/ranged_enemy.tscn" id="2_0ibnw"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_s5u4d"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="3_jsnd8"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_6sxv4"]
+[ext_resource type="Script" path="res://scenes/levels/activate_dialogue_2.gd" id="6_bj4bs"]
 [ext_resource type="Texture2D" uid="uid://dwwyxq1knic5" path="res://assets/sprites/Sprite-0005.png" id="6_qmkdu"]
 [ext_resource type="Script" path="res://scenes/levels/activate_dialogue.gd" id="6_rf3fa"]
 
@@ -49,9 +49,6 @@ sources/0 = SubResource("TileSetAtlasSource_k0oqk")
 [node name="player" parent="." instance=ExtResource("1_2n45e")]
 position = Vector2(-3, -100)
 
-[node name="enemy_ranged" parent="." instance=ExtResource("2_0ibnw")]
-position = Vector2(958, -148)
-
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(397, -124)
 limit_bottom = 200
@@ -79,13 +76,22 @@ dead_zone_height = 0.4
 draw_limits = true
 limit_bottom = 200
 
-[node name="activate_dialogue" type="Area2D" parent="."]
-position = Vector2(3922, -101)
+[node name="activate_dialogue_1" type="Area2D" parent="."]
+position = Vector2(1000, -100)
 rotation = -1.57079
 collision_mask = 2
 script = ExtResource("6_rf3fa")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="activate_dialogue"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="activate_dialogue_1"]
+shape = SubResource("WorldBoundaryShape2D_kpmp1")
+
+[node name="activate_dialogue_2" type="Area2D" parent="."]
+position = Vector2(4000, -100)
+rotation = -1.57079
+collision_mask = 2
+script = ExtResource("6_bj4bs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="activate_dialogue_2"]
 shape = SubResource("WorldBoundaryShape2D_kpmp1")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]

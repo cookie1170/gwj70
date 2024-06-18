@@ -1,11 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://t4331kxryunp"]
 
 [ext_resource type="Script" path="res://scripts/arrow.gd" id="1_dte5n"]
-[ext_resource type="Texture2D" uid="uid://dwwyxq1knic5" path="res://assets/sprites/Sprite-0005.png" id="2_w4j00"]
+[ext_resource type="Texture2D" uid="uid://j5uym2al2nlm" path="res://assets/sprites/arrow.png" id="2_skn7r"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1n2bw"]
+radius = 17.1172
 
 [node name="arrow_player" type="RigidBody2D"]
+gravity_scale = 0.1
 script = ExtResource("1_dte5n")
 
 [node name="hitbox_area" type="Area2D" parent="."]
@@ -15,6 +17,7 @@ collision_mask = 6
 shape = SubResource("CircleShape2D_1n2bw")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_w4j00")
+scale = Vector2(8, 8)
+texture = ExtResource("2_skn7r")
 
 [connection signal="body_entered" from="hitbox_area" to="." method="_on_body_entered"]

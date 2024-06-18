@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cg8i4g1se77yd"
-path="res://.godot/imported/Sprite-0003-export.png-92c32eb634b8115a5ef092873c827501.ctex"
+uid="uid://c0rsjbs46iwa8"
+path="res://.godot/imported/player_bow.png-beb4ecbdcdece99ee68b01d3f6c5542d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/Sprite-0003-export.png"
-dest_files=["res://.godot/imported/Sprite-0003-export.png-92c32eb634b8115a5ef092873c827501.ctex"]
+source_file="res://assets/sprites/player_bow.png"
+dest_files=["res://.godot/imported/player_bow.png-beb4ecbdcdece99ee68b01d3f6c5542d.ctex"]
 
 [params]
 

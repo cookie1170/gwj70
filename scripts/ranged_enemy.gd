@@ -19,6 +19,7 @@ var arrow = preload("res://scenes/reusable/arrow.tscn")
 func attack():
 	attacking = true
 	var arrow = arrow.instantiate()
+	arrow.impulse = 1500
 	arrow.rotation = get_angle_to(target.global_position)
 	arrow.position = shoot_point.position
 	add_child(arrow)
