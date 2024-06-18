@@ -5,11 +5,11 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1n2bw"]
 
-[node name="arrow" type="RigidBody2D"]
+[node name="arrow_player" type="RigidBody2D"]
 script = ExtResource("1_dte5n")
 
 [node name="hitbox_area" type="Area2D" parent="."]
-collision_mask = 4
+collision_mask = 6
 
 [node name="hitbox" type="CollisionShape2D" parent="hitbox_area"]
 shape = SubResource("CircleShape2D_1n2bw")

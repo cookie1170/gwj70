@@ -1,12 +1,12 @@
 [gd_scene load_steps=15 format=3 uid="uid://cvsmqoypsg30s"]
 
 [ext_resource type="PackedScene" uid="uid://tkgv3h3sywn1" path="res://scenes/reusable/player.tscn" id="1_2n45e"]
-[ext_resource type="PackedScene" uid="uid://dqar6hfwx56ed" path="res://scenes/reusable/ranged_enemy.tscn" id="2_0ibnw"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_s5u4d"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="3_jsnd8"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_6sxv4"]
 [ext_resource type="Texture2D" uid="uid://dwwyxq1knic5" path="res://assets/sprites/Sprite-0005.png" id="6_qmkdu"]
 [ext_resource type="Script" path="res://scenes/levels/activate_dialogue.gd" id="6_rf3fa"]
+[ext_resource type="PackedScene" uid="uid://b1of8vehbfmeq" path="res://scenes/reusable/enemy.tscn" id="7_g4fwv"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_cd627"]
 
@@ -19,9 +19,9 @@ ease = 2
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_kpmp1"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_3en1q"]
-vertices = PackedVector2Array(166, 30, 154, 30, 154, 26, 166, 26, 278, 28, 234, 29, 234, 26, 278, 26, 311, -134, 293, -10, -36, -10, -34, -139)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7), PackedInt32Array(8, 9, 10, 11)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-44.25, -149.5, 323.25, -143.5, 296.5, 37.5, -47, 44.25)])
+vertices = PackedVector2Array(166, 34, 154, 34, 154, 26, 166, 26, 209, -10, -30, -10, -11, -88, 201, -91)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-20, -98, 210.5, -102.25, 224.25, 41.75, -55, 52.5)])
 source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_kin5f"]
@@ -49,8 +49,8 @@ sources/0 = SubResource("TileSetAtlasSource_k0oqk")
 [node name="player" parent="." instance=ExtResource("1_2n45e")]
 position = Vector2(-3, -100)
 
-[node name="enemy_ranged" parent="." instance=ExtResource("2_0ibnw")]
-position = Vector2(958, -148)
+[node name="enemy" parent="." instance=ExtResource("7_g4fwv")]
+position = Vector2(247, -104)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(397, -124)

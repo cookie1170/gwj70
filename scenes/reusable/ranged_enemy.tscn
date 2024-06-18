@@ -1,18 +1,18 @@
-[gd_scene load_steps=25 format=3 uid="uid://b1of8vehbfmeq"]
+[gd_scene load_steps=24 format=3 uid="uid://dqar6hfwx56ed"]
 
-[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_s4ast"]
-[ext_resource type="Texture2D" uid="uid://c5uvpaybpqfj4" path="res://assets/sprites/heart_blue.png" id="2_0wy2h"]
-[ext_resource type="Texture2D" uid="uid://cjh5a1ff7vve7" path="res://assets/sprites/Sprite-0004-export.png" id="2_qutl4"]
-[ext_resource type="Texture2D" uid="uid://cg8i4g1se77yd" path="res://assets/sprites/Sprite-0003-export.png" id="3_fgxve"]
-[ext_resource type="Texture2D" uid="uid://0442sxw8hnd" path="res://assets/sprites/heart_red.png" id="3_n4tfl"]
-[ext_resource type="Texture2D" uid="uid://ctrmlynlhvhuc" path="res://assets/sprites/Sprite-0001-Sheet.png" id="4_n2x2m"]
-[ext_resource type="Texture2D" uid="uid://cwxyx8x3qvvuc" path="res://assets/sprites/run_old.png" id="5_vhn4l"]
+[ext_resource type="Script" path="res://scripts/ranged_enemy.gd" id="1_g14h6"]
+[ext_resource type="Texture2D" uid="uid://c5uvpaybpqfj4" path="res://assets/sprites/heart_blue.png" id="2_nsu6f"]
+[ext_resource type="Texture2D" uid="uid://0442sxw8hnd" path="res://assets/sprites/heart_red.png" id="3_nrqqg"]
+[ext_resource type="Texture2D" uid="uid://cjh5a1ff7vve7" path="res://assets/sprites/Sprite-0004-export.png" id="4_02vry"]
+[ext_resource type="Texture2D" uid="uid://cg8i4g1se77yd" path="res://assets/sprites/Sprite-0003-export.png" id="5_vv27p"]
+[ext_resource type="Texture2D" uid="uid://ctrmlynlhvhuc" path="res://assets/sprites/Sprite-0001-Sheet.png" id="6_tbkhe"]
+[ext_resource type="Texture2D" uid="uid://cwxyx8x3qvvuc" path="res://assets/sprites/run_old.png" id="7_dnt4x"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_djhwt"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_0wy2h")
+"texture": ExtResource("2_nsu6f")
 }],
 "loop": true,
 "name": &"heart_empty",
@@ -20,7 +20,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_n4tfl")
+"texture": ExtResource("3_nrqqg")
 }],
 "loop": true,
 "name": &"heart_full",
@@ -28,16 +28,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_n4tfl")
+"texture": ExtResource("3_nrqqg")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_0wy2h")
+"texture": ExtResource("2_nsu6f")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_n4tfl")
+"texture": ExtResource("3_nrqqg")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_0wy2h")
+"texture": ExtResource("2_nsu6f")
 }],
 "loop": false,
 "name": &"heart_hit",
@@ -45,55 +45,55 @@ animations = [{
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_te7bf"]
-atlas = ExtResource("2_qutl4")
+atlas = ExtResource("4_02vry")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_210o3"]
-atlas = ExtResource("2_qutl4")
+atlas = ExtResource("4_02vry")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r8qeu"]
-atlas = ExtResource("2_qutl4")
+atlas = ExtResource("4_02vry")
 region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3tl8k"]
-atlas = ExtResource("2_qutl4")
+atlas = ExtResource("4_02vry")
 region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l3mk4"]
-atlas = ExtResource("3_fgxve")
+atlas = ExtResource("5_vv27p")
 region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a2hbk"]
-atlas = ExtResource("4_n2x2m")
+atlas = ExtResource("6_tbkhe")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hxnbl"]
-atlas = ExtResource("4_n2x2m")
+atlas = ExtResource("6_tbkhe")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6vlbg"]
-atlas = ExtResource("3_fgxve")
+atlas = ExtResource("5_vv27p")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_528p4"]
-atlas = ExtResource("3_fgxve")
+atlas = ExtResource("5_vv27p")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_umptx"]
-atlas = ExtResource("3_fgxve")
+atlas = ExtResource("5_vv27p")
 region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x5ais"]
-atlas = ExtResource("5_vhn4l")
+atlas = ExtResource("7_dnt4x")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nlo0q"]
-atlas = ExtResource("5_vhn4l")
+atlas = ExtResource("7_dnt4x")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rqevd"]
-atlas = ExtResource("5_vhn4l")
+atlas = ExtResource("7_dnt4x")
 region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1lka1"]
@@ -167,15 +167,11 @@ animations = [{
 radius = 27.0
 height = 123.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ufq3f"]
-radius = 3.25
-height = 8.0
-
-[node name="enemy" type="CharacterBody2D"]
+[node name="enemy_ranged" type="CharacterBody2D"]
 collision_layer = 4
 motion_mode = 1
 wall_min_slide_angle = 0.0
-script = ExtResource("1_s4ast")
+script = ExtResource("1_g14h6")
 
 [node name="heart_1" type="AnimatedSprite2D" parent="."]
 position = Vector2(20, -73)
@@ -212,19 +208,9 @@ debug_enabled = true
 wait_time = 0.1
 autostart = true
 
-[node name="i_frame_timer" type="Timer" parent="."]
-wait_time = 0.2
+[node name="shoot_point_point" type="Marker2D" parent="."]
+position = Vector2(50, 0)
 
-[node name="atk_area" type="Area2D" parent="."]
-position = Vector2(40, -30)
-scale = Vector2(8, 8)
-collision_mask = 2
-
-[node name="atk_hitbox" type="CollisionShape2D" parent="atk_area"]
-position = Vector2(-0.125, 2.25)
-shape = SubResource("CapsuleShape2D_ufq3f")
-debug_color = Color(0.701961, 0, 0, 0.419608)
+[node name="shoot_point" type="Marker2D" parent="shoot_point_point"]
 
 [connection signal="timeout" from="nav_timer" to="." method="_on_timer_timeout"]
-[connection signal="timeout" from="i_frame_timer" to="." method="_on_i_frame_timeout"]
-[connection signal="body_entered" from="atk_area" to="." method="_on_atk_entered"]
