@@ -123,7 +123,7 @@ func _physics_process(delta):
 	if not is_on_floor() and not jumped and not attacking and not on_cd:
 		sprite.play("fall")
 	
-	$"../PhantomCamera2D".set_follow_offset(Vector2(cam_offset, 0))
+	#$"../PhantomCamera2D".set_follow_offset(Vector2(cam_offset, 0))
 	
 	move_and_slide()
 
