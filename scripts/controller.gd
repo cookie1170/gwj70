@@ -1,17 +1,17 @@
 extends CharacterBody2D
 
 
-@onready var sprite = $smoothing_sprite/sprite
+@onready var sprite = $sprite
 @onready var atk_area = $atk_area
 @onready var atk_hitbox = $atk_area/atk_hitbox
 @onready var coyote_timer = $coyote_timer
-@onready var hearts = [$smoothing_hearts/heart_1, $smoothing_hearts/heart_2, $smoothing_hearts/heart_3]
+@onready var hearts = [$heart_1, $heart_2, $heart_3]
 @onready var shoot_cd = $shoot_cd
 @onready var i_frame_timer = $i_frame_timer
 
 
-var speed: float = 450.0
-var jump_velocity: float = -900.0
+var speed: float = 650.0
+var jump_velocity: float = -600.0
 var accel: float = 25
 var decel: float = 40
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -29,7 +29,7 @@ var i_frames: bool = false
 
 func _ready():
 	remove_child(atk_area)
-
+	velocity.x = 1000
 
 func attack():
 	attacking = true
@@ -69,7 +69,6 @@ func _physics_process(delta):
 	
 	#jump spaghetti don't look at this please i'm begging you
 	if Input.is_action_just_pressed("jump") or j_buffered and Input.is_action_pressed("jump"):
-		
 		if jump_available:
 			velocity.y = jump_velocity
 			jumped = true
@@ -78,21 +77,21 @@ func _physics_process(delta):
 		
 		if not is_on_floor() and not j_buffered:
 			j_buffered = true
-			await get_tree().create_timer(.2).timeout
+			await get_tree().create_timer(.3).timeout
 			j_buffered = false
 
 	if not Input.is_action_pressed("jump") and jumped:
-		velocity.y -= velocity.y/2
+		if velocity.y < 0:
+			velocity.y -= velocity.y/2
 		jumped = false
 		gravity *= 2.5
-	
+		
 	if is_on_floor():
 		gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+		if not jump_available:
+			jumped = false
 		jump_available = true
 		coyote_timer.stop()
-	
-	if velocity.y >= 0:
-		jumped = false
 
 	if Input.is_action_just_pressed("attack") and not attacking and gm.chosen_weapon == 1:
 		attack()
@@ -123,7 +122,6 @@ func _physics_process(delta):
 	if not is_on_floor() and not jumped and not attacking and not on_cd:
 		sprite.play("fall")
 	
-	#$"../PhantomCamera2D".set_follow_offset(Vector2(cam_offset, 0))
 	
 	move_and_slide()
 
