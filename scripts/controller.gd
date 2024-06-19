@@ -11,7 +11,7 @@ extends CharacterBody2D
 
 
 var speed: float = 650.0
-var jump_velocity: float = -600.0
+var jump_velocity: float = -700.0
 var accel: float = 25
 var decel: float = 40
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -29,7 +29,6 @@ var i_frames: bool = false
 
 func _ready():
 	remove_child(atk_area)
-	velocity.x = 1000
 
 func attack():
 	attacking = true
@@ -68,7 +67,7 @@ func _physics_process(delta):
 			coyote_timer.start()
 	
 	#jump spaghetti don't look at this please i'm begging you
-	if Input.is_action_just_pressed("jump") or j_buffered and Input.is_action_pressed("jump"):
+	if Input.is_action_just_pressed("jump") and gm.can_move or j_buffered and Input.is_action_pressed("jump") and gm.can_move:
 		if jump_available:
 			velocity.y = jump_velocity
 			jumped = true
@@ -101,7 +100,7 @@ func _physics_process(delta):
 
 	var direction = Input.get_axis("left", "right")
 	
-	if direction:
+	if direction and gm.can_move:
 		velocity.x = move_toward(velocity.x, direction * speed, accel)
 		if direction == -1:
 			sprite.flip_h = true
@@ -122,6 +121,9 @@ func _physics_process(delta):
 	if not is_on_floor() and not jumped and not attacking and not on_cd:
 		sprite.play("fall")
 	
+	if not gm.can_move:
+		velocity.x = 0
+		sprite.play("idle")
 	
 	move_and_slide()
 

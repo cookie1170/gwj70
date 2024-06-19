@@ -1,11 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://cvsmqoypsg30s"]
 
 [ext_resource type="PackedScene" uid="uid://tkgv3h3sywn1" path="res://scenes/reusable/player.tscn" id="1_5471x"]
-[ext_resource type="Script" path="res://scenes/levels/activate_dialogue.gd" id="3_nlj0v"]
-[ext_resource type="Script" path="res://scenes/levels/activate_dialogue_2.gd" id="4_jfg46"]
+[ext_resource type="PackedScene" uid="uid://bd6uhqd72ivo3" path="res://scenes/reusable/activate_dialogue.tscn" id="2_8rhhq"]
 [ext_resource type="Texture2D" uid="uid://dwwyxq1knic5" path="res://assets/sprites/Sprite-0005.png" id="5_emev7"]
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_kpmp1"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_kin5f"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -27,49 +24,66 @@ physics_layer_0/collision_layer = 1
 navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_k0oqk")
 
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_jaufo"]
+
+[sub_resource type="Curve2D" id="Curve2D_nwg81"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1150, 0, 0, 0, 0, 0, 2300, 0, 0, 0, 0, 0, 3452, -2, 0, 0, 0, 0, 4600, 0)
+}
+point_count = 5
+
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_pmapw"]
 
 [node name="woods" type="Node2D"]
 
 [node name="player" parent="." instance=ExtResource("1_5471x")]
-position = Vector2(-3, -100)
+position = Vector2(0, -32)
 
-[node name="Camera2D" type="Camera2D" parent="."]
-limit_left = 0
-limit_bottom = 200
-limit_smoothed = true
-editor_draw_limits = true
+[node name="activate_dialogue" parent="." instance=ExtResource("2_8rhhq")]
+dialogue = "woods"
 
-[node name="activate_dialogue_1" type="Area2D" parent="."]
-position = Vector2(1150, -300)
-rotation = -1.57079
-collision_mask = 2
-script = ExtResource("3_nlj0v")
+[node name="activate_dialogue2" parent="." instance=ExtResource("2_8rhhq")]
+position = Vector2(2302, -231)
+dialogue = "woods_2"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="activate_dialogue_1"]
-shape = SubResource("WorldBoundaryShape2D_kpmp1")
-metadata/_edit_lock_ = true
+[node name="activate_dialogue3" parent="." instance=ExtResource("2_8rhhq")]
+position = Vector2(3452, -202)
+dialogue = "woods_3"
 
-[node name="activate_dialogue_2" type="Area2D" parent="."]
-position = Vector2(4000, -100)
-rotation = -1.57079
-collision_mask = 2
-script = ExtResource("4_jfg46")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="activate_dialogue_2"]
-shape = SubResource("WorldBoundaryShape2D_kpmp1")
-metadata/_edit_lock_ = true
+[node name="activate_dialogue4" parent="." instance=ExtResource("2_8rhhq")]
+position = Vector2(4601, -197)
+dialogue = "woods_4"
 
 [node name="TileMap" type="TileMap" parent="."]
 scale = Vector2(4, 4)
 tile_set = SubResource("TileSet_bwtmp")
 format = 2
-layer_0/tile_data = PackedInt32Array(1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 14, 0, 0, 15, 0, 0, 16, 0, 0, 17, 0, 0, 18, 0, 0, 19, 0, 0, 20, 0, 0, 21, 0, 0, 22, 0, 0, 23, 0, 0, 24, 0, 0, 25, 0, 0, 26, 0, 0, 27, 0, 0, 28, 0, 0, 29, 0, 0, 30, 0, 0, 31, 0, 0, 32, 0, 0, 33, 0, 0, 34, 0, 0, 36, 0, 0, 37, 0, 0, 38, 0, 0, 39, 0, 0, 40, 0, 0, 41, 0, 0, 42, 0, 0, 43, 0, 0, 44, 0, 0, 45, 0, 0, 46, 0, 0, 47, 0, 0, 48, 0, 0, 49, 0, 0, 50, 0, 0, 51, 0, 0, 52, 0, 0, 53, 0, 0, 54, 0, 0, 55, 0, 0, 56, 0, 0, 57, 0, 0, 58, 0, 0, 59, 0, 0, 60, 0, 0, 61, 0, 0, 62, 0, 0, 35, 0, 0, 65536, 0, 0, 131072, 0, 0, 65537, 0, 0, 65538, 0, 0, 65540, 0, 0, 65542, 0, 0, 131078, 0, 0, 65544, 0, 0, 65548, 0, 0, 65549, 0, 0, 65554, 0, 0, 65555, 0, 0, 131092, 0, 0, 131093, 0, 0, 65557, 0, 0, 65558, 0, 0, 65547, 0, 0, 65556, 0, 0, 65564, 0, 0, 65565, 0, 0, 65566, 0, 0, 131102, 0, 0, 131101, 0, 0, 65567, 0, 0, 65572, 0, 0, 65573, 0, 0, 65574, 0, 0, 131110, 0, 0, 131111, 0, 0, 65575, 0, 0, 65576, 0, 0, 65577, 0, 0, 65582, 0, 0, 65583, 0, 0, 65584, 0, 0, 131119, 0, 0, 131120, 0, 0, 65587, 0, 0, 65588, 0, 0, 65589, 0, 0, 131125, 0, 0, 65591, 0, 0, 65592, 0, 0, 131128, 0, 0, 65593, 0, 0, 65594, 0, 0, 131131, 0, 0, 65597, 0, 0, 65598, 0, 0, 0, 0, 0, -65522, 0, 0, -65521, 0, 0, -65520, 0, 0, -65519, 0, 0, -131055, 0, 0, -196591, 0, 0, -196592, 0, 0, -131056, 0, 0, -131057, 0, 0, -65523, 0, 0, -131058, 0, 0, -196590, 0, 0, -131054, 0, 0, -65518, 0, 0, -196589, 0, 0, -196588, 0, 0, -131052, 0, 0, -65516, 0, 0, -131053, 0, 0, -65517, 0, 0)
+layer_0/tile_data = PackedInt32Array(1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 14, 0, 0, 15, 0, 0, 16, 0, 0, 17, 0, 0, 18, 0, 0, 19, 0, 0, 20, 0, 0, 21, 0, 0, 22, 0, 0, 23, 0, 0, 24, 0, 0, 25, 0, 0, 26, 0, 0, 27, 0, 0, 28, 0, 0, 29, 0, 0, 30, 0, 0, 31, 0, 0, 32, 0, 0, 33, 0, 0, 34, 0, 0, 36, 0, 0, 37, 0, 0, 38, 0, 0, 39, 0, 0, 40, 0, 0, 41, 0, 0, 42, 0, 0, 43, 0, 0, 44, 0, 0, 45, 0, 0, 46, 0, 0, 47, 0, 0, 48, 0, 0, 49, 0, 0, 50, 0, 0, 51, 0, 0, 52, 0, 0, 53, 0, 0, 54, 0, 0, 55, 0, 0, 56, 0, 0, 57, 0, 0, 58, 0, 0, 59, 0, 0, 60, 0, 0, 61, 0, 0, 62, 0, 0, 35, 0, 0, 65536, 0, 0, 131072, 0, 0, 65537, 0, 0, 65538, 0, 0, 65540, 0, 0, 65542, 0, 0, 131078, 0, 0, 65544, 0, 0, 65548, 0, 0, 65549, 0, 0, 65554, 0, 0, 65555, 0, 0, 131092, 0, 0, 131093, 0, 0, 65557, 0, 0, 65558, 0, 0, 65547, 0, 0, 65556, 0, 0, 65564, 0, 0, 65565, 0, 0, 65566, 0, 0, 131102, 0, 0, 131101, 0, 0, 65567, 0, 0, 65572, 0, 0, 65573, 0, 0, 65574, 0, 0, 131110, 0, 0, 131111, 0, 0, 65575, 0, 0, 65576, 0, 0, 65577, 0, 0, 65582, 0, 0, 65583, 0, 0, 65584, 0, 0, 131119, 0, 0, 131120, 0, 0, 65587, 0, 0, 65588, 0, 0, 65589, 0, 0, 131125, 0, 0, 65591, 0, 0, 65592, 0, 0, 131128, 0, 0, 65593, 0, 0, 65594, 0, 0, 131131, 0, 0, 65597, 0, 0, 65598, 0, 0, 0, 0, 0, -65522, 0, 0, -65521, 0, 0, -65520, 0, 0, -65519, 0, 0, -131055, 0, 0, -196591, 0, 0, -196592, 0, 0, -131056, 0, 0, -131057, 0, 0, -65523, 0, 0, -131058, 0, 0, -196590, 0, 0, -131054, 0, 0, -65518, 0, 0, -196589, 0, 0, -196588, 0, 0, -131052, 0, 0, -65516, 0, 0, -131053, 0, 0, -65517, 0, 0, -131051, 0, 0, -65515, 0, 0, -65514, 0, 0, -65513, 0, 0, -65503, 0, 0, -131038, 0, 0, -131037, 0, 0, -65501, 0, 0, -65500, 0, 0, -65502, 0, 0, 63, 0, 0, 64, 0, 0, 65, 0, 0, 65602, 0, 0, 65603, 0, 0, 66, 0, 0, 67, 0, 0, 65601, 0, 0, 131136, 0, 0, 131137, 0, 0, 68, 0, 0, 69, 0, 0, 70, 0, 0, 71, 0, 0, 65606, 0, 0, 65605, 0, 0, 131141, 0, 0, 72, 0, 0, 73, 0, 0, -131036, 0, 0, -65499, 0, 0, -65475, 0, 0, -131010, 0, 0, -131009, 0, 0, -65473, 0, 0, -65472, 0, 0, -65471, 0, 0, -65474, 0, 0, -131008, 0, 0, 74, 0, 0, 75, 0, 0, 76, 0, 0, 77, 0, 0, 78, 0, 0, 79, 0, 0, 80, 0, 0, 81, 0, 0, 82, 0, 0, 83, 0, 0, 84, 0, 0, 85, 0, 0, 86, 0, 0, 87, 0, 0, 88, 0, 0, 89, 0, 0, 90, 0, 0)
 
-[node name="boundary_left" type="StaticBody2D" parent="."]
-position = Vector2(0, -100)
+[node name="boundary_right" type="StaticBody2D" parent="."]
+position = Vector2(4632, -100)
+rotation = -1.5708
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="boundary_left"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="boundary_right"]
+shape = SubResource("WorldBoundaryShape2D_jaufo")
+
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2(0, -200)
+curve = SubResource("Curve2D_nwg81")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+
+[node name="Camera2D" type="Camera2D" parent="Path2D/PathFollow2D"]
+position = Vector2(575, 200)
+limit_left = 0
+limit_bottom = 200
+limit_smoothed = true
+editor_draw_limits = true
+
+[node name="boundary_left" type="StaticBody2D" parent="Path2D/PathFollow2D/Camera2D"]
+position = Vector2(-575, -100)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Path2D/PathFollow2D/Camera2D/boundary_left"]
 rotation = 1.5708
 shape = SubResource("WorldBoundaryShape2D_pmapw")
 metadata/_edit_lock_ = true

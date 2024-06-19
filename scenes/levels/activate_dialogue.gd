@@ -1,8 +1,10 @@
 extends Area2D
 
-var layout = Dialogic.start("woods")	
+@export var dialogue: String
+
 
 func _ready():
-	#layout.register_character(load("res://dialogic/narrator.dch"), $"../player")
 	await body_entered
-	Dialogic.start("woods")
+	var tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CIRC)
+	Dialogic.start(dialogue)
+	tween.tween_property($"../Path2D/PathFollow2D", "progress", $"../Path2D/PathFollow2D".progress + 1150, .75)

@@ -1,0 +1,18 @@
+[signal arg="off"]
+narrator: Oh yeah!
+narrator: While they were wandering in the woods they saw...
+- A giant
+	narrator: A Giant so tall that they couldn't even see his head.
+	narrator: His feet made the ground shake when he walked.
+	[signal arg="giant"]
+	narrator: The Traveller decided to follow the giant.
+- A sasquatch
+	narrator: A Sasquatch! Long limbed and furry.
+	narrator: It walks between the trees like a shadow.
+	[signal arg="sasquatch"]
+	narrator: The Traveller decided to follow the sasquatch.
+- A faerie
+	narrator: A Faerie fluttering by on shimmering wings, heading deeper into the forest.
+	[signal arg="faerie"]
+	narrator: The Traveller decided to follow the faerie.
+[signal arg="on"]

@@ -213,8 +213,7 @@ func get_current_choice_indexes() -> Array:
 
 func is_question(index:int) -> bool:
 	if dialogic.current_timeline_events[index] is DialogicTextEvent:
-		if len(dialogic.current_timeline_events)-1 != index:
-			if dialogic.current_timeline_events[index+1] is DialogicChoiceEvent:
+			if dialogic.current_timeline_events[index] is DialogicChoiceEvent:
 				return true
 
 	if dialogic.current_timeline_events[index] is DialogicChoiceEvent:
