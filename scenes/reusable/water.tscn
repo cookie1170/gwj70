@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://dhg7nny3f1723"]
+
+[ext_resource type="Texture2D" uid="uid://cgm7rmi558qow" path="res://assets/sprites/tilemaps/forest_tilemap.png" id="1_817a2"]
+[ext_resource type="Script" path="res://scripts/obstacle.gd" id="1_btfh7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1pxnu"]
+atlas = ExtResource("1_817a2")
+region = Rect2(48, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wi6qm"]
+atlas = ExtResource("1_817a2")
+region = Rect2(48, 48, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qx2um"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1pxnu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wi6qm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ml053"]
+size = Vector2(8, 6)
+
+[node name="water" type="Area2D"]
+modulate = Color(0.74902, 0.74902, 0.74902, 1)
+z_index = 1
+collision_mask = 2
+script = ExtResource("1_btfh7")
+
+[node name="water_sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_qx2um")
+autoplay = "default"
+
+[node name="water_hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_ml053")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="godot wild jam 70"
-run/main_scene="res://scenes/levels/woods.tscn"
+run/main_scene="res://scenes/levels/meadow.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 boot_splash/bg_color=Color(0.0784314, 0.133333, 0.25098, 1)
 boot_splash/image="res://boot splash.png"
@@ -20,6 +20,7 @@ config/icon="res://gwj icon.svg"
 [autoload]
 
 gm="*res://scripts/gm.gd"
+transition="*res://scenes/reusable/transition.tscn"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 
 [dialogic]
@@ -29,7 +30,8 @@ directories/dch_directory={
 "unit_test_character": "res://Tests/Resources/unit_test_character.dch"
 }
 directories/dtl_directory={
-"woods": "res://assets/sprites/woods.dtl",
+"first_enemy": "res://dialogic/first_enemy.dtl",
+"woods": "res://dialogic/woods.dtl",
 "woods_2": "res://dialogic/woods_2.dtl",
 "woods_3": "res://dialogic/woods_3.dtl",
 "woods_4": "res://dialogic/woods_4.dtl"

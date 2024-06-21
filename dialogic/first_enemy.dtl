@@ -1,0 +1,10 @@
+[signal arg="off"]
+narrator: Oh No! An enemy! It's a good thing the Traveller is armed with their trusty weapon...
+narrator: What was is it again?
+- A sword
+	[signal arg="sword"]
+- An axe
+	[signal arg="axe"]
+- A bow
+	[signal arg="bow"]
+[signal arg="on"]

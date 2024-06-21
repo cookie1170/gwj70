@@ -15,6 +15,7 @@ var acceleration = 7
 var attacking = false
 var health = 3
 var i_frames = false
+var nav_enabled = false
 
 
 func _ready():
@@ -37,7 +38,12 @@ func _physics_process(delta):
 	var dist = global_transform.origin.distance_to(target.global_position)
 	var direction = Vector2.ZERO
 	
-	if dist >= 100:
+	if dist <= 1000 and gm.can_move:
+		nav_enabled = true
+	else:
+		nav_enabled = false
+	
+	if dist >= 100 and nav_enabled:
 		direction = nav_agent.get_next_path_position() - global_position
 		direction = direction.normalized()
 	
@@ -60,7 +66,8 @@ func _physics_process(delta):
 	move_and_slide()
 
 func _on_timer_timeout():
-	nav_agent.target_position = target.global_position
+	if nav_enabled:
+		nav_agent.target_position = target.global_position
 	
 func get_hit():
 	if not i_frames:
@@ -72,6 +79,23 @@ func get_hit():
 		var heart = hearts.front()
 		if is_instance_valid(heart):
 			heart.play("heart_hit")
+		hearts.remove_at(0)
+
+
+func get_hit_two():
+	if not i_frames:
+		i_frames = true
+		i_frame_timer.start()
+		health -= 2
+		if health <= 0:
+			queue_free()
+		var heart_1 = hearts.front()
+		if is_instance_valid(heart_1):
+			heart_1.play("heart_hit")
+		hearts.remove_at(0)
+		var heart_2 = hearts.front()
+		if is_instance_valid(heart_2):
+			heart_2.play("heart_hit")
 		hearts.remove_at(0)
 
 

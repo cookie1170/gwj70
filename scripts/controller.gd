@@ -11,7 +11,7 @@ extends CharacterBody2D
 
 
 var speed: float = 650.0
-var jump_velocity: float = -700.0
+var jump_velocity: float = -750.0
 var accel: float = 25
 var decel: float = 40
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -24,6 +24,7 @@ var jump_available: bool = true
 var health: int = clampi(3, 0, 3)
 var on_cd: bool = false
 var arrow = preload("res://scenes/reusable/arrow.tscn")
+var axe = preload("res://scenes/reusable/axe.tscn")
 var i_frames: bool = false
 
 
@@ -38,8 +39,28 @@ func attack():
 	attacking = false
 	if is_instance_valid(atk_area):
 		remove_child(atk_area)
-	
-	
+
+
+func attack_axe():
+	var axe = axe.instantiate()
+	axe.impulse = 1000
+	if rad_to_deg(get_angle_to(get_global_mouse_position())) <= -90 or rad_to_deg(get_angle_to(get_global_mouse_position())) >= 90:
+		sprite.flip_h = true
+	else:
+		sprite.flip_h = false
+	on_cd = true
+	sprite.play("attack_axe")
+	i_frames = true
+	i_frame_timer.start(0.05)
+	await sprite.animation_finished
+	axe.rotation = get_angle_to(get_global_mouse_position())
+	axe.position = position
+	get_tree().current_scene.add_child(axe)
+	shoot_cd.start(2)
+	await shoot_cd.timeout
+	on_cd = false
+
+
 func shoot():
 	var arrow = arrow.instantiate()
 	arrow.impulse = 2000
@@ -92,10 +113,13 @@ func _physics_process(delta):
 		jump_available = true
 		coyote_timer.stop()
 
-	if Input.is_action_just_pressed("attack") and not attacking and gm.chosen_weapon == 1:
+	if Input.is_action_just_pressed("attack") and not attacking and gm.chosen_weapon == "sword":
 		attack()
 	
-	if Input.is_action_just_pressed("attack") and not on_cd and not attacking and gm.chosen_weapon == 2:
+	if Input.is_action_just_pressed("attack") and not attacking and gm.chosen_weapon == "axe":
+		attack_axe()
+	
+	if Input.is_action_just_pressed("attack") and not on_cd and not attacking and gm.chosen_weapon == "bow":
 		shoot()
 
 	var direction = Input.get_axis("left", "right")
@@ -105,11 +129,9 @@ func _physics_process(delta):
 		if direction == -1:
 			sprite.flip_h = true
 			atk_area.position.x = -60
-			change_offset(-400)
 		if direction == 1:
 			sprite.flip_h = false
 			atk_area.position.x = 60
-			change_offset(400)
 		if is_on_floor() and not attacking and not on_cd:
 			sprite.play("run")
 	
@@ -125,6 +147,9 @@ func _physics_process(delta):
 		velocity.x = 0
 		sprite.play("idle")
 	
+	
+	$"../Path2D/PathFollow2D/Camera2D".offset.y = position.y / 3
+	
 	move_and_slide()
 
 
@@ -133,26 +158,41 @@ func _on_atk_entered(body):
 	remove_child(atk_area)
 
 
-func change_offset(offset: float):
-	await get_tree().create_timer(.2).timeout
-	cam_offset = lerp(cam_offset, offset, 0.025)
-	
-
 func get_hit():
 	if not i_frames:
 		i_frame_timer.start()
 		health -= 1
 		if health == 0:
-			get_tree().reload_current_scene()
+			fail()
 		var heart = hearts.front()
 		if is_instance_valid(heart):
 			heart.play("heart_hit")
 		hearts.remove_at(0)
 	
 	
+func get_hit_two():
+	if not i_frames:
+		i_frame_timer.start()
+		health -= 2
+		if health <= 0:
+			fail()
+		var heart_1 = hearts.front()
+		if is_instance_valid(heart_1):
+			heart_1.play("heart_hit")
+		hearts.remove_at(0)
+		var heart_2 = hearts.front()
+		if is_instance_valid(heart_2):
+			heart_2.play("heart_hit")
+		hearts.remove_at(0)
+
+
 func on_coyote_timeout():
 	jump_available = false
 
 
 func _on_i_frame_timeout():
 	i_frames = false
+
+
+func fail():
+	transition.fail(self, $"../Path2D/PathFollow2D/Camera2D/boundary_cam".global_position)

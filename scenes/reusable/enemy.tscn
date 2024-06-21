@@ -1,26 +1,29 @@
-[gd_scene load_steps=25 format=3 uid="uid://b1of8vehbfmeq"]
+[gd_scene load_steps=27 format=3 uid="uid://b1of8vehbfmeq"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_s4ast"]
-[ext_resource type="Texture2D" uid="uid://c5uvpaybpqfj4" path="res://assets/sprites/heart_blue.png" id="2_0wy2h"]
-[ext_resource type="Texture2D" uid="uid://cjh5a1ff7vve7" path="res://assets/sprites/attack_old.png" id="2_qutl4"]
-[ext_resource type="Texture2D" uid="uid://cg8i4g1se77yd" path="res://assets/sprites/jump_old.png" id="3_fgxve"]
-[ext_resource type="Texture2D" uid="uid://0442sxw8hnd" path="res://assets/sprites/heart_red.png" id="3_n4tfl"]
-[ext_resource type="Texture2D" uid="uid://ctrmlynlhvhuc" path="res://assets/sprites/idle_old.png" id="4_n2x2m"]
-[ext_resource type="Texture2D" uid="uid://cwxyx8x3qvvuc" path="res://assets/sprites/run_old.png" id="5_vhn4l"]
+[ext_resource type="Texture2D" uid="uid://cjh5a1ff7vve7" path="res://assets/sprites/player_old/attack_old.png" id="2_qutl4"]
+[ext_resource type="Texture2D" uid="uid://cutk8x3kifwpm" path="res://assets/sprites/player/heart.png" id="2_sr6s0"]
+[ext_resource type="Texture2D" uid="uid://cg8i4g1se77yd" path="res://assets/sprites/player_old/jump_old.png" id="3_fgxve"]
+[ext_resource type="Texture2D" uid="uid://ctrmlynlhvhuc" path="res://assets/sprites/player_old/idle_old.png" id="4_n2x2m"]
+[ext_resource type="Texture2D" uid="uid://cwxyx8x3qvvuc" path="res://assets/sprites/player_old/run_old.png" id="5_vhn4l"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_040td"]
+atlas = ExtResource("2_sr6s0")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bh6xs"]
+atlas = ExtResource("2_sr6s0")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hghe1"]
+atlas = ExtResource("2_sr6s0")
+region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_djhwt"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_0wy2h")
-}],
-"loop": true,
-"name": &"heart_empty",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_n4tfl")
+"texture": SubResource("AtlasTexture_040td")
 }],
 "loop": true,
 "name": &"heart_full",
@@ -28,16 +31,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_n4tfl")
+"texture": SubResource("AtlasTexture_bh6xs")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_0wy2h")
+"texture": SubResource("AtlasTexture_hghe1")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_n4tfl")
+"texture": SubResource("AtlasTexture_bh6xs")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_0wy2h")
+"texture": SubResource("AtlasTexture_hghe1")
 }],
 "loop": false,
 "name": &"heart_hit",
@@ -178,17 +181,20 @@ wall_min_slide_angle = 0.0
 script = ExtResource("1_s4ast")
 
 [node name="heart_1" type="AnimatedSprite2D" parent="."]
-position = Vector2(20, -73)
+position = Vector2(32, -73)
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_djhwt")
 animation = &"heart_hit"
 
 [node name="heart_2" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -73)
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_djhwt")
 animation = &"heart_hit"
 
 [node name="heart_3" type="AnimatedSprite2D" parent="."]
-position = Vector2(-20, -73)
+position = Vector2(-32, -73)
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_djhwt")
 animation = &"heart_hit"
 
