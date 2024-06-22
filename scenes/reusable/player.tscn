@@ -335,7 +335,7 @@ collision_layer = 2
 script = ExtResource("1_g2unk")
 
 [node name="coyote_timer" type="Timer" parent="."]
-wait_time = 0.2
+wait_time = 0.15
 one_shot = true
 
 [node name="shoot_cd" type="Timer" parent="."]

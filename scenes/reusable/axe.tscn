@@ -11,7 +11,7 @@ gravity_scale = 0.1
 script = ExtResource("1_sm5s4")
 
 [node name="hitbox_area" type="Area2D" parent="."]
-collision_mask = 6
+collision_mask = 4
 
 [node name="hitbox" type="CollisionShape2D" parent="hitbox_area"]
 shape = SubResource("CircleShape2D_1n2bw")

@@ -1,0 +1,167 @@
+[gd_scene load_steps=17 format=3 uid="uid://b1of8vehbfmeq"]
+
+[ext_resource type="Script" path="res://scripts/slime.gd" id="1_c8pba"]
+[ext_resource type="Texture2D" uid="uid://cutk8x3kifwpm" path="res://assets/sprites/player/heart.png" id="2_sr6s0"]
+[ext_resource type="Texture2D" uid="uid://cebdaipjb8ttr" path="res://assets/sprites/enemy/slime.png" id="4_6dwm7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_040td"]
+atlas = ExtResource("2_sr6s0")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bh6xs"]
+atlas = ExtResource("2_sr6s0")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hghe1"]
+atlas = ExtResource("2_sr6s0")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_djhwt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_040td")
+}],
+"loop": true,
+"name": &"heart_full",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bh6xs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hghe1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bh6xs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hghe1")
+}],
+"loop": false,
+"name": &"heart_hit",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ibor2"]
+atlas = ExtResource("4_6dwm7")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oe5b6"]
+atlas = ExtResource("4_6dwm7")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luwk8"]
+atlas = ExtResource("4_6dwm7")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_malan"]
+atlas = ExtResource("4_6dwm7")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3sbbj"]
+atlas = ExtResource("4_6dwm7")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a0k55"]
+atlas = ExtResource("4_6dwm7")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1lka1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ibor2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oe5b6")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_luwk8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_malan")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3sbbj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a0k55")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v4dux"]
+radius = 17.0
+height = 34.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ufq3f"]
+radius = 30.0
+height = 60.0
+
+[node name="enemy" type="CharacterBody2D"]
+collision_layer = 4
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_c8pba")
+
+[node name="heart_1" type="AnimatedSprite2D" parent="."]
+position = Vector2(32, -30)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_djhwt")
+animation = &"heart_hit"
+
+[node name="heart_2" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -30)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_djhwt")
+animation = &"heart_hit"
+
+[node name="heart_3" type="AnimatedSprite2D" parent="."]
+position = Vector2(-32, -30)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_djhwt")
+animation = &"heart_hit"
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_1lka1")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.557295
+
+[node name="hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 15)
+shape = SubResource("CapsuleShape2D_v4dux")
+debug_color = Color(0.7, 0.233333, 0, 0.419608)
+
+[node name="nav_agent" type="NavigationAgent2D" parent="."]
+debug_enabled = true
+
+[node name="nav_timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[node name="i_frame_timer" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="atk_area" type="Area2D" parent="."]
+position = Vector2(0, 25)
+collision_mask = 2
+
+[node name="atk_hitbox" type="CollisionShape2D" parent="atk_area"]
+position = Vector2(0, -10)
+shape = SubResource("CapsuleShape2D_ufq3f")
+debug_color = Color(0.701961, 0, 0, 0.419608)
+
+[connection signal="timeout" from="nav_timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="i_frame_timer" to="." method="_on_i_frame_timeout"]
+[connection signal="body_entered" from="atk_area" to="." method="_on_atk_entered"]

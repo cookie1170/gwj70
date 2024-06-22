@@ -18,36 +18,28 @@ var i_frames = false
 var nav_enabled = false
 
 
-func _ready():
-	remove_child(atk_area)
-
-
-func attack():
-	attacking = true
-	sprite.play("attack")
-	await get_tree().create_timer(.4).timeout
-	add_child(atk_area)
-	await sprite.animation_finished
-	if is_instance_valid(atk_area):
-		remove_child(atk_area)
-	await get_tree().create_timer(.8).timeout
-	attacking = false
-
-
 func _physics_process(delta):
 	var dist = global_transform.origin.distance_to(target.global_position)
 	var direction = Vector2.ZERO
+	
+	if not is_on_floor():
+		velocity.y += 980
 	
 	if dist <= 1000 and gm.can_move:
 		nav_enabled = true
 	else:
 		nav_enabled = false
 	
+	if not nav_enabled:
+		sprite.play("idle")
+
+	
 	if dist >= 100 and nav_enabled:
 		direction = nav_agent.get_next_path_position() - global_position
 		direction = direction.normalized()
-	
-	velocity = velocity.lerp(direction * speed, acceleration * delta)
+		
+		
+	velocity.x = lerp(velocity.x, direction.x * speed, acceleration * delta)
 	
 	if velocity.x and not attacking:
 		sprite.play("run")
@@ -57,11 +49,7 @@ func _physics_process(delta):
 	if velocity.x > 0:
 		atk_area.position.x = 40
 		sprite.flip_h = false
-	if not velocity.x and not attacking:
-		sprite.play("idle")
 	
-	if dist <= 200 and not attacking:
-		attack()
 	
 	move_and_slide()
 
@@ -101,7 +89,6 @@ func get_hit_two():
 
 func _on_atk_entered(body):
 	body.get_hit()
-	remove_child(atk_area)
 
 
 func _on_i_frame_timeout():

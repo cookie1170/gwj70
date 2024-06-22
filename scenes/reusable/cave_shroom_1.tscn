@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://chbiqwlod8rng"]
+
+[ext_resource type="Texture2D" uid="uid://bbpaii60bqbt4" path="res://assets/sprites/tilemaps/cave_tilemap.png" id="1_u6ilb"]
+
+[sub_resource type="Gradient" id="Gradient_t35ya"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0207e"]
+gradient = SubResource("Gradient_t35ya")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="Sprite2D" type="Sprite2D"]
+z_index = -1
+texture = ExtResource("1_u6ilb")
+region_enabled = true
+region_rect = Rect2(144, 16, 16, 16)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+z_index = 1
+color = Color(0.76704, 0.2914, 0.94, 1)
+texture = SubResource("GradientTexture2D_0207e")

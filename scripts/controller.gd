@@ -43,6 +43,7 @@ func attack():
 
 func attack_axe():
 	var axe = axe.instantiate()
+	attacking = true
 	axe.impulse = 1000
 	if rad_to_deg(get_angle_to(get_global_mouse_position())) <= -90 or rad_to_deg(get_angle_to(get_global_mouse_position())) >= 90:
 		sprite.flip_h = true
@@ -53,16 +54,18 @@ func attack_axe():
 	i_frames = true
 	i_frame_timer.start(0.05)
 	await sprite.animation_finished
+	attacking = false
 	axe.rotation = get_angle_to(get_global_mouse_position())
 	axe.position = position
 	get_tree().current_scene.add_child(axe)
 	shoot_cd.start(2)
 	await shoot_cd.timeout
 	on_cd = false
-
+	
 
 func shoot():
 	var arrow = arrow.instantiate()
+	attacking = true
 	arrow.impulse = 2000
 	if rad_to_deg(get_angle_to(get_global_mouse_position())) <= -90 or rad_to_deg(get_angle_to(get_global_mouse_position())) >= 90:
 		sprite.flip_h = true
@@ -73,6 +76,7 @@ func shoot():
 	i_frames = true
 	i_frame_timer.start(0.05)
 	await sprite.animation_finished
+	attacking = false
 	arrow.rotation = get_angle_to(get_global_mouse_position())
 	arrow.position = position
 	get_tree().current_scene.add_child(arrow)
@@ -92,7 +96,7 @@ func _physics_process(delta):
 		if jump_available:
 			velocity.y = jump_velocity
 			jumped = true
-			if not attacking and not on_cd:
+			if not attacking:
 				sprite.play("jump")
 		
 		if not is_on_floor() and not j_buffered:
@@ -116,7 +120,7 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("attack") and not attacking and gm.chosen_weapon == "sword":
 		attack()
 	
-	if Input.is_action_just_pressed("attack") and not attacking and gm.chosen_weapon == "axe":
+	if Input.is_action_just_pressed("attack") and not on_cd and not attacking and gm.chosen_weapon == "axe":
 		attack_axe()
 	
 	if Input.is_action_just_pressed("attack") and not on_cd and not attacking and gm.chosen_weapon == "bow":
@@ -132,15 +136,15 @@ func _physics_process(delta):
 		if direction == 1:
 			sprite.flip_h = false
 			atk_area.position.x = 60
-		if is_on_floor() and not attacking and not on_cd:
+		if is_on_floor() and not attacking:
 			sprite.play("run")
 	
 	if !direction:
 		velocity.x = move_toward(velocity.x, 0, decel)
-		if not attacking and not jumped and not on_cd:
+		if not attacking and not jumped:
 			sprite.play("idle")
 	
-	if not is_on_floor() and not jumped and not attacking and not on_cd:
+	if not is_on_floor() and not jumped and not attacking:
 		sprite.play("fall")
 	
 	if not gm.can_move:
@@ -148,7 +152,8 @@ func _physics_process(delta):
 		sprite.play("idle")
 	
 	
-	$"../Path2D/PathFollow2D/Camera2D".offset.y = position.y / 3
+	if get_tree().current_scene != $"sky.tscn":
+		$"../Path2D/PathFollow2D/Camera2D".offset.y = position.y / 3
 	
 	move_and_slide()
 
@@ -195,4 +200,17 @@ func _on_i_frame_timeout():
 
 
 func fail():
+	sprite.hide()
+	$heart_1.hide()
+	$heart_2.hide()
+	$heart_3.hide()
 	transition.fail(self, $"../Path2D/PathFollow2D/Camera2D/boundary_cam".global_position)
+	await get_tree().create_timer(.7).timeout
+	$heart_1.play("heart_full")
+	$heart_2.play("heart_full")
+	$heart_3.play("heart_full")
+	sprite.show()
+	$heart_1.show()
+	$heart_2.show()
+	$heart_3.show()
+	i_frames = false

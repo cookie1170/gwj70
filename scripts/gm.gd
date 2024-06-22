@@ -18,5 +18,7 @@ func _dialogic_signal(argument):
 		can_move = true
 	if argument == "meadow":
 		transition.change_scene("res://scenes/levels/meadow.tscn")
+	if argument == "cave":
+		transition.change_scene("res://scenes/levels/cave.tscn")
 	if argument == "sword" or argument == "axe" or argument == "bow":
 		chosen_weapon = argument
