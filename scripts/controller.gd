@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+@export var move_cam_y: bool = true
+
 
 @onready var sprite = $sprite
 @onready var atk_area = $atk_area
@@ -152,7 +154,7 @@ func _physics_process(delta):
 		sprite.play("idle")
 	
 	
-	if get_tree().current_scene != $"sky.tscn":
+	if move_cam_y:
 		$"../Path2D/PathFollow2D/Camera2D".offset.y = position.y / 3
 	
 	move_and_slide()
@@ -204,7 +206,10 @@ func fail():
 	$heart_1.hide()
 	$heart_2.hide()
 	$heart_3.hide()
-	transition.fail(self, $"../Path2D/PathFollow2D/Camera2D/boundary_cam".global_position)
+	if not move_cam_y:
+		transition.fail(self, Vector2(575, $"../Camera2D".position.y + 64) )
+	elif move_cam_y:
+		transition.fail(self, $"../Path2D/PathFollow2D/Camera2D/boundary_cam".global_position)
 	await get_tree().create_timer(.7).timeout
 	$heart_1.play("heart_full")
 	$heart_2.play("heart_full")

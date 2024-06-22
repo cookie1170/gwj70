@@ -1,6 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://dwmufd1j5mr6a"]
+[gd_scene load_steps=22 format=3 uid="uid://dwmufd1j5mr6a"]
 
 [ext_resource type="PackedScene" uid="uid://tkgv3h3sywn1" path="res://scenes/reusable/player.tscn" id="1_fd3kb"]
+[ext_resource type="PackedScene" uid="uid://0myhdotblvlt" path="res://scenes/reusable/pause_menu.tscn" id="1_ghl3r"]
 [ext_resource type="PackedScene" uid="uid://bd6uhqd72ivo3" path="res://scenes/reusable/trigger.tscn" id="2_6sp4v"]
 [ext_resource type="Texture2D" uid="uid://cgm7rmi558qow" path="res://assets/sprites/tilemaps/forest_tilemap.png" id="3_uq8l7"]
 [ext_resource type="PackedScene" uid="uid://dhg7nny3f1723" path="res://scenes/reusable/water.tscn" id="4_doeii"]
@@ -322,6 +323,8 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 
 [node name="meadow" type="Node2D"]
+
+[node name="pause_menu" parent="." instance=ExtResource("1_ghl3r")]
 
 [node name="player" parent="." instance=ExtResource("1_fd3kb")]
 position = Vector2(0, -32)

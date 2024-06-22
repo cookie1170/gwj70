@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://cvsmqoypsg30s"]
+[gd_scene load_steps=20 format=3 uid="uid://cvsmqoypsg30s"]
 
 [ext_resource type="PackedScene" uid="uid://tkgv3h3sywn1" path="res://scenes/reusable/player.tscn" id="1_5471x"]
 [ext_resource type="PackedScene" uid="uid://bd6uhqd72ivo3" path="res://scenes/reusable/trigger.tscn" id="2_8rhhq"]
@@ -9,10 +9,6 @@
 [ext_resource type="Script" path="res://scenes/levels/cam_shake.gd" id="6_s7k4q"]
 [ext_resource type="Texture2D" uid="uid://oxrimqp2hnpn" path="res://assets/sprites/creatures/giant.png" id="7_b1bxx"]
 [ext_resource type="Script" path="res://scripts/giant.gd" id="8_chome"]
-[ext_resource type="Texture2D" uid="uid://dksxc4liov2j7" path="res://assets/sprites/creatures/sasquatch.png" id="10_ffc1d"]
-[ext_resource type="Script" path="res://scripts/sasquatch.gd" id="11_uf3rg"]
-[ext_resource type="Texture2D" uid="uid://cys1y442lmrxh" path="res://assets/sprites/creatures/faerie.png" id="12_sbaxw"]
-[ext_resource type="Script" path="res://scripts/faerie.gd" id="13_5eclm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cl2rh"]
 texture = ExtResource("3_hpq5p")
@@ -278,19 +274,19 @@ point_count = 5
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_pmapw"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_72g80"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_uv2bm"]
 atlas = ExtResource("7_b1bxx")
 region = Rect2(0, 0, 384, 300)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_by38n"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_vg7m4"]
 atlas = ExtResource("7_b1bxx")
 region = Rect2(384, 0, 384, 300)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_spl57"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_64asu"]
 atlas = ExtResource("7_b1bxx")
 region = Rect2(768, 0, 384, 300)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_467uq"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_caqt8"]
 atlas = ExtResource("7_b1bxx")
 region = Rect2(1152, 0, 384, 300)
 
@@ -298,121 +294,21 @@ region = Rect2(1152, 0, 384, 300)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_72g80")
+"texture": SubResource("AtlasTexture_uv2bm")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_by38n")
+"texture": SubResource("AtlasTexture_vg7m4")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_spl57")
+"texture": SubResource("AtlasTexture_64asu")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_467uq")
+"texture": SubResource("AtlasTexture_caqt8")
 }],
 "loop": true,
-"name": &"walk",
+"name": &"default",
 "speed": 2.0
 }]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lwpem"]
-atlas = ExtResource("10_ffc1d")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_h8qnd"]
-atlas = ExtResource("10_ffc1d")
-region = Rect2(64, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_q3s6n"]
-atlas = ExtResource("10_ffc1d")
-region = Rect2(128, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2mxe1"]
-atlas = ExtResource("10_ffc1d")
-region = Rect2(192, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pctw0"]
-atlas = ExtResource("10_ffc1d")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_n1l2c"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lwpem")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_h8qnd")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_q3s6n")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2mxe1")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pctw0")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 5.0
-}]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_t7y5b"]
-atlas = ExtResource("12_sbaxw")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dke2k"]
-atlas = ExtResource("12_sbaxw")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_m8fih"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_t7y5b")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dke2k")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="Gradient" id="Gradient_kah4s"]
-offsets = PackedFloat32Array(0, 0.856322)
-colors = PackedColorArray(1, 0.27451, 1, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_m8gbj"]
-gradient = SubResource("Gradient_kah4s")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_b7abx"]
-particle_flag_disable_z = true
-initial_velocity_min = -25.0
-initial_velocity_max = 25.0
-gravity = Vector3(0, 98, 0)
-
-[sub_resource type="Gradient" id="Gradient_tx6m5"]
-colors = PackedColorArray(1, 0.317647, 1, 0.831373, 1, 0.396078, 1, 0.839216)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_qls07"]
-gradient = SubResource("Gradient_tx6m5")
-width = 8
-height = 8
-fill_from = Vector2(0, 1)
-
-[sub_resource type="Curve2D" id="Curve2D_dhid6"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 4800, -50, 100, 0, 0, 0, 4611, -134, 58.2358, -2.33427, -58.2358, 2.33427, 4442, -156, 38.6264, -1.23912, -38.6264, 1.23912, 4290, -140, 84.3564, 12.653, -84.3564, -12.653, 4162, -147, 22.3272, -45.0972, -22.3272, 45.0972, 4008, -188, -44.1804, 6.27338, 44.1804, -6.27338, 4127, -186, -52.8316, 7.55099, 52.8316, -7.55099, 4213, -261, -53.8262, -12.2704, 53.8262, 12.2704, 4338, -245, -95.5051, 21.7255, 95.5051, -21.7255, 4584, -229, -35.1425, -44.2001, 35.1425, 44.2001, 4759, -200, 0, 0, 0, 0, 4813, -85)
-}
-point_count = 12
 
 [node name="woods" type="Node2D"]
 
@@ -485,49 +381,17 @@ scale = Vector2(4, 4)
 texture = ExtResource("5_u5tkg")
 
 [node name="giant" type="AnimatedSprite2D" parent="."]
-position = Vector2(4950, -300)
+visible = false
+position = Vector2(4000, -300)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_modb6")
-animation = &"walk"
-frame_progress = 0.404873
+frame_progress = 0.637513
+flip_h = true
 script = ExtResource("8_chome")
 
-[node name="sasquatch" type="AnimatedSprite2D" parent="."]
-position = Vector2(4700, -129)
-scale = Vector2(4, 4)
-sprite_frames = SubResource("SpriteFrames_n1l2c")
-frame_progress = 0.833551
-script = ExtResource("11_uf3rg")
-
-[node name="faerie" type="AnimatedSprite2D" parent="."]
-position = Vector2(4800, -50)
-scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_m8fih")
-frame_progress = 0.760764
-flip_h = true
-script = ExtResource("13_5eclm")
-
-[node name="PointLight2D" type="PointLight2D" parent="faerie"]
-scale = Vector2(0.25, 0.25)
-color = Color(1, 0.333333, 1, 1)
-texture = SubResource("GradientTexture2D_m8gbj")
-
-[node name="GPUParticles2D" type="GPUParticles2D" parent="faerie"]
-z_index = -1
-amount = 4
-process_material = SubResource("ParticleProcessMaterial_b7abx")
-texture = SubResource("GradientTexture2D_qls07")
-
-[node name="Path2D2" type="Path2D" parent="."]
-curve = SubResource("Curve2D_dhid6")
-
-[node name="PathFollow2D" type="PathFollow2D" parent="Path2D2"]
-position = Vector2(4800, -50)
-rotation = -2.72337
-
 [connection signal="body_entered" from="TileMap/water" to="TileMap/water" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52288" to="TileMap/@Area2D@52288" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52289" to="TileMap/@Area2D@52289" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52290" to="TileMap/@Area2D@52290" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52291" to="TileMap/@Area2D@52291" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@25832" to="TileMap/@Area2D@25832" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@25833" to="TileMap/@Area2D@25833" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@25834" to="TileMap/@Area2D@25834" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@25835" to="TileMap/@Area2D@25835" method="_on_body_entered"]
 [connection signal="frame_changed" from="giant" to="giant" method="_on_frame_changed"]

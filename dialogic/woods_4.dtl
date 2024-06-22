@@ -7,6 +7,7 @@ narrator: As they walked through the forest, the Traveller suddenly came upon...
 - A beanstalk
 	narrator: An enormous beanstalk that reaches up farther than the eye can see.
 	narrator: Where could it lead to?
+	[signal arg="beans"]
 - A well
 	narrator: A well whose depths seem to lead down into the earth.
 	narrator: It seems like a good place to search for treasure.

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bpg4m0561iimw"]
+[gd_scene load_steps=20 format=3 uid="uid://bpg4m0561iimw"]
 
 [ext_resource type="PackedScene" uid="uid://tkgv3h3sywn1" path="res://scenes/reusable/player.tscn" id="1_dcriy"]
 [ext_resource type="PackedScene" uid="uid://bd6uhqd72ivo3" path="res://scenes/reusable/trigger.tscn" id="2_k520q"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://codsfsombdddf" path="res://scenes/reusable/cave_shroom_2.tscn" id="9_qfh78"]
 [ext_resource type="PackedScene" uid="uid://mdaxaivdknat" path="res://scenes/reusable/cave_shroom_3.tscn" id="10_0ts15"]
 [ext_resource type="PackedScene" uid="uid://dimvahtegtav6" path="res://scenes/reusable/cave_shroom_4.tscn" id="11_aviiv"]
+[ext_resource type="PackedScene" uid="uid://0myhdotblvlt" path="res://scenes/reusable/pause_menu.tscn" id="12_ivdhe"]
 
 [sub_resource type="Curve2D" id="Curve2D_nwg81"]
 _data = {
@@ -323,6 +324,8 @@ sources/2 = SubResource("TileSetScenesCollectionSource_cnv2p")
 sources/0 = SubResource("TileSetAtlasSource_uev8b")
 
 [node name="cave" type="Node2D"]
+
+[node name="pause_menu" parent="." instance=ExtResource("12_ivdhe")]
 
 [node name="player" parent="." instance=ExtResource("1_dcriy")]
 position = Vector2(0, -32)
