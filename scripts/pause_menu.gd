@@ -11,7 +11,7 @@ func _ready():
 	GuiTransitions.hide("settings_c")
 
 func _process(_delta):
-	if Input.is_action_just_pressed("pause") and not GuiTransitions.in_transition():
+	if Input.is_action_just_pressed("pause") and gm.can_move and not GuiTransitions.in_transition():
 		pausef()
 
 
