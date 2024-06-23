@@ -6,4 +6,5 @@
 
 [node name="bg_music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("1_uo46q")
+volume_db = -10.0
 autoplay = true

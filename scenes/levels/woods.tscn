@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://cvsmqoypsg30s"]
+[gd_scene load_steps=40 format=3 uid="uid://cvsmqoypsg30s"]
 
 [ext_resource type="PackedScene" uid="uid://tkgv3h3sywn1" path="res://scenes/reusable/player.tscn" id="1_5471x"]
 [ext_resource type="PackedScene" uid="uid://bd6uhqd72ivo3" path="res://scenes/reusable/trigger.tscn" id="2_8rhhq"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://scripts/cam_shake.gd" id="6_s7k4q"]
 [ext_resource type="Texture2D" uid="uid://oxrimqp2hnpn" path="res://assets/sprites/creatures/giant.png" id="7_b1bxx"]
 [ext_resource type="Script" path="res://scripts/giant.gd" id="8_chome"]
+[ext_resource type="AudioStream" uid="uid://c6gfohp3v06vn" path="res://assets/sfx/heavy-wall-pounding-14535.mp3" id="10_47d3y"]
 [ext_resource type="Texture2D" uid="uid://dksxc4liov2j7" path="res://assets/sprites/creatures/sasquatch.png" id="10_ffc1d"]
 [ext_resource type="Script" path="res://scripts/sasquatch.gd" id="11_uf3rg"]
 [ext_resource type="Texture2D" uid="uid://cys1y442lmrxh" path="res://assets/sprites/creatures/faerie.png" id="12_sbaxw"]
@@ -311,7 +312,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"walk",
-"speed": 2.0
+"speed": 1.5
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lwpem"]
@@ -493,6 +494,12 @@ animation = &"walk"
 frame_progress = 0.952988
 script = ExtResource("8_chome")
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="giant"]
+stream = ExtResource("10_47d3y")
+volume_db = 15.0
+pitch_scale = 0.75
+attenuation = 2.0
+
 [node name="sasquatch" type="AnimatedSprite2D" parent="."]
 visible = false
 position = Vector2(4700, -129)
@@ -528,4 +535,9 @@ curve = SubResource("Curve2D_dhid6")
 position = Vector2(4800, -50)
 rotation = -2.72337
 
+[connection signal="body_entered" from="TileMap/water" to="TileMap/water" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@25075" to="TileMap/@Area2D@25075" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@25076" to="TileMap/@Area2D@25076" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@25077" to="TileMap/@Area2D@25077" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@25078" to="TileMap/@Area2D@25078" method="_on_body_entered"]
 [connection signal="frame_changed" from="giant" to="giant" method="_on_frame_changed"]

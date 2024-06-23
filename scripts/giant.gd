@@ -16,6 +16,7 @@ func _dialogic_signal(argument):
 
 
 func _on_frame_changed():
+	$AudioStreamPlayer2D.play()
 	if moving_left:
 		$"../Path2D/PathFollow2D/Camera2D".shake(0.05, 5, 5)
 		position.x = lerpf(position.x, position.x - 50, 3)
