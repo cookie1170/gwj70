@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://tkgv3h3sywn1"]
+[gd_scene load_steps=53 format=3 uid="uid://tkgv3h3sywn1"]
 
 [ext_resource type="Script" path="res://scripts/controller.gd" id="1_g2unk"]
 [ext_resource type="Texture2D" uid="uid://cutk8x3kifwpm" path="res://assets/sprites/player/heart.png" id="2_45cs1"]
@@ -12,6 +12,10 @@
 [ext_resource type="Texture2D" uid="uid://ctrmlynlhvhuc" path="res://assets/sprites/player_old/idle_old.png" id="9_73fr5"]
 [ext_resource type="Texture2D" uid="uid://b5bv744gw03tq" path="res://assets/sprites/player/player_run.png" id="10_h4vlh"]
 [ext_resource type="Texture2D" uid="uid://cwxyx8x3qvvuc" path="res://assets/sprites/player_old/run_old.png" id="11_6ns1w"]
+[ext_resource type="AudioStream" uid="uid://cbx8ahrfex388" path="res://assets/sfx/jump.mp3" id="13_3bics"]
+[ext_resource type="AudioStream" uid="uid://diskqd47rf14l" path="res://assets/sfx/land_cloud.mp3" id="14_s5n5p"]
+[ext_resource type="AudioStream" uid="uid://briy2gay2o4o2" path="res://assets/sfx/land_grass.mp3" id="15_kqu3s"]
+[ext_resource type="AudioStream" uid="uid://b0d13w7w4qhtp" path="res://assets/sfx/land_stone.mp3" id="16_oy73k"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v4dux"]
 radius = 27.0
@@ -383,6 +387,18 @@ collision_mask = 4
 [node name="atk_hitbox" type="CollisionShape2D" parent="atk_area"]
 shape = SubResource("CapsuleShape2D_ufq3f")
 debug_color = Color(0.7, 0.606667, 0, 0.419608)
+
+[node name="jump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_3bics")
+
+[node name="land_cloud" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_s5n5p")
+
+[node name="land_grass" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_kqu3s")
+
+[node name="land_stone" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_oy73k")
 
 [connection signal="timeout" from="coyote_timer" to="." method="on_coyote_timeout"]
 [connection signal="timeout" from="i_frame_timer" to="." method="_on_i_frame_timeout"]

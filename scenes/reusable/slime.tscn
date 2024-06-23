@@ -99,18 +99,15 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v4dux"]
-radius = 17.0
-height = 34.0
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ufq3f"]
 radius = 30.0
 height = 60.0
 
-[node name="enemy" type="CharacterBody2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_u5cp3"]
+radius = 24.0
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
 collision_layer = 4
-motion_mode = 1
-wall_min_slide_angle = 0.0
 script = ExtResource("1_c8pba")
 
 [node name="heart_1" type="AnimatedSprite2D" parent="."]
@@ -136,17 +133,9 @@ scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_1lka1")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.557295
+frame_progress = 0.469966
 
-[node name="hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, 15)
-shape = SubResource("CapsuleShape2D_v4dux")
-debug_color = Color(0.7, 0.233333, 0, 0.419608)
-
-[node name="nav_agent" type="NavigationAgent2D" parent="."]
-debug_enabled = true
-
-[node name="nav_timer" type="Timer" parent="."]
+[node name="update_timer" type="Timer" parent="."]
 wait_time = 0.1
 autostart = true
 
@@ -158,10 +147,14 @@ position = Vector2(0, 25)
 collision_mask = 2
 
 [node name="atk_hitbox" type="CollisionShape2D" parent="atk_area"]
-position = Vector2(0, -10)
+position = Vector2(0, -15)
 shape = SubResource("CapsuleShape2D_ufq3f")
 debug_color = Color(0.701961, 0, 0, 0.419608)
 
-[connection signal="timeout" from="nav_timer" to="." method="_on_timer_timeout"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 8)
+shape = SubResource("CircleShape2D_u5cp3")
+
+[connection signal="timeout" from="update_timer" to="." method="_on_update_timer_timeout"]
 [connection signal="timeout" from="i_frame_timer" to="." method="_on_i_frame_timeout"]
 [connection signal="body_entered" from="atk_area" to="." method="_on_atk_entered"]

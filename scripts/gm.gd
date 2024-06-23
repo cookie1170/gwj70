@@ -2,6 +2,7 @@ extends Node
 
 var chosen_weapon: String = "none"
 var can_move: bool = true
+var chosen_location: String = "none"
 
 
 func _ready():
@@ -15,9 +16,12 @@ func _dialogic_signal(argument):
 		can_move = true
 	if argument == "meadow":
 		transition.change_scene("res://scenes/levels/meadow.tscn")
+		chosen_location = "meadow"
 	if argument == "cave":
 		transition.change_scene("res://scenes/levels/cave.tscn")
+		chosen_location = "cave"
 	if argument == "beans":
 		transition.change_scene("res://scenes/levels/sky.tscn")
+		chosen_location = "beans"
 	if argument == "sword" or argument == "axe" or argument == "bow":
 		chosen_weapon = argument

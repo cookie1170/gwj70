@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dhg7nny3f1723" path="res://scenes/reusable/water.tscn" id="4_x4ma6"]
 [ext_resource type="Texture2D" uid="uid://lgj2x0t0ytw8" path="res://assets/sprites/backgrounds/bg_forest.png" id="5_u5tkg"]
 [ext_resource type="PackedScene" uid="uid://0myhdotblvlt" path="res://scenes/reusable/pause_menu.tscn" id="6_cdcnb"]
-[ext_resource type="Script" path="res://scenes/levels/cam_shake.gd" id="6_s7k4q"]
+[ext_resource type="Script" path="res://scripts/cam_shake.gd" id="6_s7k4q"]
 [ext_resource type="Texture2D" uid="uid://oxrimqp2hnpn" path="res://assets/sprites/creatures/giant.png" id="7_b1bxx"]
 [ext_resource type="Script" path="res://scripts/giant.gd" id="8_chome"]
 [ext_resource type="Texture2D" uid="uid://dksxc4liov2j7" path="res://assets/sprites/creatures/sasquatch.png" id="10_ffc1d"]
@@ -489,7 +489,7 @@ position = Vector2(4950, -300)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_modb6")
 animation = &"walk"
-frame_progress = 0.404873
+frame_progress = 0.952988
 script = ExtResource("8_chome")
 
 [node name="sasquatch" type="AnimatedSprite2D" parent="."]
@@ -525,9 +525,4 @@ curve = SubResource("Curve2D_dhid6")
 position = Vector2(4800, -50)
 rotation = -2.72337
 
-[connection signal="body_entered" from="TileMap/water" to="TileMap/water" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52288" to="TileMap/@Area2D@52288" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52289" to="TileMap/@Area2D@52289" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52290" to="TileMap/@Area2D@52290" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52291" to="TileMap/@Area2D@52291" method="_on_body_entered"]
 [connection signal="frame_changed" from="giant" to="giant" method="_on_frame_changed"]

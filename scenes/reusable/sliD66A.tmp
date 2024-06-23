@@ -1,19 +1,19 @@
-[gd_scene load_steps=15 format=3 uid="uid://dcgrrom8e5075"]
+[gd_scene load_steps=17 format=3 uid="uid://7v5lf7usc4xs"]
 
-[ext_resource type="Script" path="res://scripts/slime.gd" id="1_x66yb"]
-[ext_resource type="Texture2D" uid="uid://cutk8x3kifwpm" path="res://assets/sprites/player/heart.png" id="2_lgu04"]
-[ext_resource type="Texture2D" uid="uid://y4ksjkyakq3o" path="res://assets/sprites/enemy/birb.png" id="3_chm1o"]
+[ext_resource type="Script" path="res://scripts/slime.gd" id="1_2fgew"]
+[ext_resource type="Texture2D" uid="uid://cutk8x3kifwpm" path="res://assets/sprites/player/heart.png" id="2_f2rcl"]
+[ext_resource type="Texture2D" uid="uid://bobas3xntijn2" path="res://assets/sprites/enemy/slime_cave.png" id="3_1vogd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_040td"]
-atlas = ExtResource("2_lgu04")
+atlas = ExtResource("2_f2rcl")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bh6xs"]
-atlas = ExtResource("2_lgu04")
+atlas = ExtResource("2_f2rcl")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hghe1"]
-atlas = ExtResource("2_lgu04")
+atlas = ExtResource("2_f2rcl")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_djhwt"]
@@ -44,30 +44,38 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_m1jni"]
-atlas = ExtResource("3_chm1o")
+[sub_resource type="AtlasTexture" id="AtlasTexture_sbdh7"]
+atlas = ExtResource("3_1vogd")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_66e8a"]
-atlas = ExtResource("3_chm1o")
-region = Rect2(16, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_iflx7"]
+atlas = ExtResource("3_1vogd")
+region = Rect2(48, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_cj3xj"]
-atlas = ExtResource("3_chm1o")
+[sub_resource type="AtlasTexture" id="AtlasTexture_yjdur"]
+atlas = ExtResource("3_1vogd")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_miehs"]
-atlas = ExtResource("3_chm1o")
+[sub_resource type="AtlasTexture" id="AtlasTexture_gykbm"]
+atlas = ExtResource("3_1vogd")
 region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hyrij"]
+atlas = ExtResource("3_1vogd")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ily6s"]
+atlas = ExtResource("3_1vogd")
+region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1lka1"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_m1jni")
+"texture": SubResource("AtlasTexture_sbdh7")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_66e8a")
+"texture": SubResource("AtlasTexture_iflx7")
 }],
 "loop": true,
 "name": &"idle",
@@ -75,26 +83,35 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_cj3xj")
+"texture": SubResource("AtlasTexture_yjdur")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_miehs")
+"texture": SubResource("AtlasTexture_gykbm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hyrij")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ily6s")
 }],
 "loop": true,
 "name": &"run",
 "speed": 5.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v4dux"]
+radius = 17.0
+height = 34.0
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ufq3f"]
 radius = 30.0
 height = 60.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_8coqu"]
-radius = 24.0
-
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="enemy_cave" type="CharacterBody2D"]
 collision_layer = 4
-script = ExtResource("1_x66yb")
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_2fgew")
 
 [node name="heart_1" type="AnimatedSprite2D" parent="."]
 position = Vector2(32, -30)
@@ -117,13 +134,14 @@ animation = &"heart_hit"
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_1lka1")
-animation = &"idle"
+animation = &"run"
 autoplay = "idle"
-frame_progress = 0.0899732
+frame_progress = 0.816651
 
-[node name="update_timer" type="Timer" parent="."]
-wait_time = 0.1
-autostart = true
+[node name="hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 15)
+shape = SubResource("CapsuleShape2D_v4dux")
+debug_color = Color(0.7, 0.233333, 0, 0.419608)
 
 [node name="i_frame_timer" type="Timer" parent="."]
 wait_time = 0.2
@@ -133,14 +151,9 @@ position = Vector2(0, 25)
 collision_mask = 2
 
 [node name="atk_hitbox" type="CollisionShape2D" parent="atk_area"]
-position = Vector2(0, -18)
+position = Vector2(0, -10)
 shape = SubResource("CapsuleShape2D_ufq3f")
 debug_color = Color(0.701961, 0, 0, 0.419608)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 8)
-shape = SubResource("CircleShape2D_8coqu")
-
-[connection signal="timeout" from="update_timer" to="." method="_on_update_timer_timeout"]
 [connection signal="timeout" from="i_frame_timer" to="." method="_on_i_frame_timeout"]
 [connection signal="body_entered" from="atk_area" to="." method="_on_atk_entered"]
