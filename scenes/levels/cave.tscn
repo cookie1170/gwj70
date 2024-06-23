@@ -1,9 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://bpg4m0561iimw"]
+[gd_scene load_steps=21 format=3 uid="uid://bpg4m0561iimw"]
 
 [ext_resource type="PackedScene" uid="uid://tkgv3h3sywn1" path="res://scenes/reusable/player.tscn" id="1_dcriy"]
 [ext_resource type="PackedScene" uid="uid://bd6uhqd72ivo3" path="res://scenes/reusable/trigger.tscn" id="2_k520q"]
 [ext_resource type="Texture2D" uid="uid://bbpaii60bqbt4" path="res://assets/sprites/tilemaps/cave_tilemap.png" id="3_j0tvv"]
-[ext_resource type="PackedScene" uid="uid://b1of8vehbfmeq" path="res://scenes/reusable/slime.tscn" id="5_up17p"]
+[ext_resource type="Script" path="res://scripts/cam_shake.gd" id="4_0ut3i"]
 [ext_resource type="PackedScene" uid="uid://c0yl5vbya57md" path="res://scenes/reusable/spike_cave.tscn" id="6_d4pqd"]
 [ext_resource type="PackedScene" uid="uid://d2hpukn8081or" path="res://scenes/reusable/dripstone_short.tscn" id="6_vkqy2"]
 [ext_resource type="PackedScene" uid="uid://da3gmqxrtj36g" path="res://scenes/reusable/dripstone_tall.tscn" id="7_7jfdb"]
@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://codsfsombdddf" path="res://scenes/reusable/cave_shroom_2.tscn" id="9_qfh78"]
 [ext_resource type="PackedScene" uid="uid://mdaxaivdknat" path="res://scenes/reusable/cave_shroom_3.tscn" id="10_0ts15"]
 [ext_resource type="PackedScene" uid="uid://dimvahtegtav6" path="res://scenes/reusable/cave_shroom_4.tscn" id="11_aviiv"]
+[ext_resource type="PackedScene" uid="uid://0myhdotblvlt" path="res://scenes/reusable/pause_menu.tscn" id="12_ivdhe"]
+[ext_resource type="PackedScene" uid="uid://7v5lf7usc4xs" path="res://scenes/reusable/slime_cave.tscn" id="13_ndbv8"]
 
 [sub_resource type="Curve2D" id="Curve2D_nwg81"]
 _data = {
@@ -324,6 +326,8 @@ sources/0 = SubResource("TileSetAtlasSource_uev8b")
 
 [node name="cave" type="Node2D"]
 
+[node name="pause_menu" parent="." instance=ExtResource("12_ivdhe")]
+
 [node name="player" parent="." instance=ExtResource("1_dcriy")]
 position = Vector2(0, -32)
 
@@ -358,6 +362,7 @@ limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 15.0
 editor_draw_limits = true
+script = ExtResource("4_0ut3i")
 
 [node name="boundary_cam" type="StaticBody2D" parent="Path2D/PathFollow2D/Camera2D"]
 position = Vector2(-575, -32)
@@ -366,9 +371,6 @@ position = Vector2(-575, -32)
 rotation = 1.5708
 shape = SubResource("WorldBoundaryShape2D_pmapw")
 metadata/_edit_lock_ = true
-
-[node name="enemy" parent="." instance=ExtResource("5_up17p")]
-position = Vector2(6651, -74)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_yp13o")
@@ -395,9 +397,35 @@ motion_scale = Vector2(0.5, 1)
 motion_mirroring = Vector2(1152, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2(576, -330)
+position = Vector2(576, -200)
 scale = Vector2(4, 4)
 texture = ExtResource("8_k7kbc")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.583333, 0.56, 0.7, 1)
+
+[node name="enemy_cave" parent="." instance=ExtResource("13_ndbv8")]
+position = Vector2(6690, -33)
+
+[connection signal="body_entered" from="NavigationRegion2D/TileMap/dripstone_short" to="NavigationRegion2D/TileMap/dripstone_short" method="_on_body_entered"]
+[connection signal="body_entered" from="NavigationRegion2D/TileMap/@Area2D@88971" to="NavigationRegion2D/TileMap/@Area2D@88971" method="_on_body_entered"]
+[connection signal="body_entered" from="NavigationRegion2D/TileMap/@Area2D@88972" to="NavigationRegion2D/TileMap/@Area2D@88972" method="_on_body_entered"]
+[connection signal="body_entered" from="NavigationRegion2D/TileMap/spike" to="NavigationRegion2D/TileMap/spike" method="_on_body_entered"]
+[connection signal="body_entered" from="NavigationRegion2D/TileMap/@Area2D@88973" to="NavigationRegion2D/TileMap/@Area2D@88973" method="_on_body_entered"]
+[connection signal="body_entered" from="NavigationRegion2D/TileMap/@Area2D@88974" to="NavigationRegion2D/TileMap/@Area2D@88974" method="_on_body_entered"]
+[connection signal="body_entered" from="NavigationRegion2D/TileMap/dripstone_tall" to="NavigationRegion2D/TileMap/dripstone_tall" method="_on_body_entered"]
+[connection signal="body_entered" from="NavigationRegion2D/TileMap/@Area2D@88975" to="NavigationRegion2D/TileMap/@Area2D@88975" method="_on_body_entered"]
+[connection signal="body_entered" from="NavigationRegion2D/TileMap/@Area2D@88976" to="NavigationRegion2D/TileMap/@Area2D@88976" method="_on_body_entered"]
+[connection signal="body_entered" from="NavigationRegion2D/TileMap/@Area2D@88977" to="NavigationRegion2D/TileMap/@Area2D@88977" method="_on_body_entered"]
+[connection signal="body_entered" from="NavigationRegion2D/TileMap/@Area2D@88978" to="NavigationRegion2D/TileMap/@Area2D@88978" method="_on_body_entered"]
+[connection signal="body_entered" from="NavigationRegion2D/TileMap/@Area2D@88979" to="NavigationRegion2D/TileMap/@Area2D@88979" method="_on_body_entered"]
+[connection signal="body_entered" from="NavigationRegion2D/TileMap/@Area2D@88980" to="NavigationRegion2D/TileMap/@Area2D@88980" method="_on_body_entered"]
+[connection signal="body_entered" from="NavigationRegion2D/TileMap/@Area2D@88981" to="NavigationRegion2D/TileMap/@Area2D@88981" method="_on_body_entered"]
+[connection signal="body_entered" from="NavigationRegion2D/TileMap/@Area2D@88982" to="NavigationRegion2D/TileMap/@Area2D@88982" method="_on_body_entered"]
+[connection signal="body_entered" from="NavigationRegion2D/TileMap/@Area2D@88983" to="NavigationRegion2D/TileMap/@Area2D@88983" method="_on_body_entered"]
+[connection signal="body_entered" from="NavigationRegion2D/TileMap/@Area2D@88984" to="NavigationRegion2D/TileMap/@Area2D@88984" method="_on_body_entered"]
+[connection signal="body_entered" from="NavigationRegion2D/TileMap/@Area2D@88985" to="NavigationRegion2D/TileMap/@Area2D@88985" method="_on_body_entered"]
+[connection signal="body_entered" from="NavigationRegion2D/TileMap/@Area2D@88986" to="NavigationRegion2D/TileMap/@Area2D@88986" method="_on_body_entered"]
+[connection signal="body_entered" from="NavigationRegion2D/TileMap/@Area2D@88987" to="NavigationRegion2D/TileMap/@Area2D@88987" method="_on_body_entered"]
+[connection signal="body_entered" from="NavigationRegion2D/TileMap/@Area2D@88988" to="NavigationRegion2D/TileMap/@Area2D@88988" method="_on_body_entered"]
+[connection signal="body_entered" from="NavigationRegion2D/TileMap/@Area2D@88989" to="NavigationRegion2D/TileMap/@Area2D@88989" method="_on_body_entered"]

@@ -1,11 +1,13 @@
-[gd_scene load_steps=21 format=3 uid="uid://dwmufd1j5mr6a"]
+[gd_scene load_steps=23 format=3 uid="uid://dwmufd1j5mr6a"]
 
 [ext_resource type="PackedScene" uid="uid://tkgv3h3sywn1" path="res://scenes/reusable/player.tscn" id="1_fd3kb"]
+[ext_resource type="PackedScene" uid="uid://0myhdotblvlt" path="res://scenes/reusable/pause_menu.tscn" id="1_ghl3r"]
 [ext_resource type="PackedScene" uid="uid://bd6uhqd72ivo3" path="res://scenes/reusable/trigger.tscn" id="2_6sp4v"]
 [ext_resource type="Texture2D" uid="uid://cgm7rmi558qow" path="res://assets/sprites/tilemaps/forest_tilemap.png" id="3_uq8l7"]
 [ext_resource type="PackedScene" uid="uid://dhg7nny3f1723" path="res://scenes/reusable/water.tscn" id="4_doeii"]
 [ext_resource type="PackedScene" uid="uid://b1of8vehbfmeq" path="res://scenes/reusable/slime.tscn" id="5_4ly4o"]
 [ext_resource type="Texture2D" uid="uid://b6q5c1cblauig" path="res://assets/sprites/backgrounds/bg_dark_forest.png" id="6_ty6jw"]
+[ext_resource type="Script" path="res://scripts/cam_shake.gd" id="6_yg5ff"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_nvhor"]
 vertices = PackedVector2Array(6870, -357, 6848, -10, 5772, -10, 5751, -384)
@@ -323,6 +325,8 @@ fill_from = Vector2(0.5, 0.5)
 
 [node name="meadow" type="Node2D"]
 
+[node name="pause_menu" parent="." instance=ExtResource("1_ghl3r")]
+
 [node name="player" parent="." instance=ExtResource("1_fd3kb")]
 position = Vector2(0, -32)
 
@@ -375,6 +379,7 @@ limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 15.0
 editor_draw_limits = true
+script = ExtResource("6_yg5ff")
 
 [node name="boundary_cam" type="StaticBody2D" parent="Path2D/PathFollow2D/Camera2D"]
 position = Vector2(-575, -32)
@@ -396,7 +401,6 @@ explosiveness = 0.3
 
 [node name="enemy" parent="." instance=ExtResource("5_4ly4o")]
 position = Vector2(6782, -69)
-motion_mode = 0
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 

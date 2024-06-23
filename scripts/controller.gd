@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+@export var move_cam_y: bool = true
+
 
 @onready var sprite = $sprite
 @onready var atk_area = $atk_area
@@ -26,6 +28,7 @@ var on_cd: bool = false
 var arrow = preload("res://scenes/reusable/arrow.tscn")
 var axe = preload("res://scenes/reusable/axe.tscn")
 var i_frames: bool = false
+var was_in_air: bool = false
 
 
 func _ready():
@@ -88,6 +91,7 @@ func _physics_process(delta):
 	# gravity
 	if not is_on_floor():
 		velocity.y += gravity * delta
+		was_in_air = true
 		if coyote_timer.is_stopped():
 			coyote_timer.start()
 	
@@ -116,6 +120,21 @@ func _physics_process(delta):
 			jumped = false
 		jump_available = true
 		coyote_timer.stop()
+		if was_in_air:
+			if gm.chosen_location == "none" or "meadow":
+				$land_grass.pitch_scale = randf_range(0.9, 1.1)
+				$land_grass.play()
+			if gm.chosen_location == "cave":
+				$land_stone.pitch_scale = randf_range(0.9, 1.1)
+				$land_stone.play()
+			if gm.chosen_location == "beans":
+				$land_cloud.pitch_scale = randf_range(0.9, 1.1)
+				$land_cloud.play()
+			was_in_air = false
+			if gm.chosen_location != "beans":
+				$"../Path2D/PathFollow2D/Camera2D".shake(0.1, 1, 0.1)
+			else:
+				$"../Camera2D".shake(0.05, 2.5, 2.5)
 
 	if Input.is_action_just_pressed("attack") and not attacking and gm.chosen_weapon == "sword":
 		attack()
@@ -152,7 +171,7 @@ func _physics_process(delta):
 		sprite.play("idle")
 	
 	
-	if get_tree().current_scene != $"sky.tscn":
+	if move_cam_y:
 		$"../Path2D/PathFollow2D/Camera2D".offset.y = position.y / 3
 	
 	move_and_slide()
@@ -167,14 +186,15 @@ func get_hit():
 	if not i_frames:
 		i_frame_timer.start()
 		health -= 1
-		if health == 0:
+		if health <= 0:
 			fail()
-		var heart = hearts.front()
-		if is_instance_valid(heart):
-			heart.play("heart_hit")
-		hearts.remove_at(0)
-	
-	
+		for heart in hearts:
+			if heart.get_index() - 4 > health - 1:
+				heart.play("heart_hit")
+			else:
+				heart.play("heart_full")
+
+
 func get_hit_two():
 	if not i_frames:
 		i_frame_timer.start()
@@ -204,7 +224,11 @@ func fail():
 	$heart_1.hide()
 	$heart_2.hide()
 	$heart_3.hide()
-	transition.fail(self, $"../Path2D/PathFollow2D/Camera2D/boundary_cam".global_position)
+	health = 3
+	if not move_cam_y:
+		transition.fail(self, Vector2(575, $"../Camera2D".position.y + 64) )
+	elif move_cam_y:
+		transition.fail(self, $"../Path2D/PathFollow2D/Camera2D/boundary_cam".global_position)
 	await get_tree().create_timer(.7).timeout
 	$heart_1.play("heart_full")
 	$heart_2.play("heart_full")

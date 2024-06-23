@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://r5bvymxd4ue6"]
+
+[ext_resource type="AudioStream" uid="uid://cv8hu6od81htl" path="res://assets/music/POL-misty-dungeon-short.wav" id="1_uo46q"]
+
+[node name="bg_music" type="Node2D"]
+
+[node name="bg_music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_uo46q")
+autoplay = true

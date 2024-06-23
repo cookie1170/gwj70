@@ -65,7 +65,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 6
 theme_override_fonts/font = ExtResource("1_d3csq")
 theme_override_font_sizes/font_size = 32
-text = "Resume"
+text = " Resume "
 metadata/_edit_lock_ = true
 
 [node name="restart" type="Button" parent="pause/CanvasLayer/MarginContainer/pause_c"]
