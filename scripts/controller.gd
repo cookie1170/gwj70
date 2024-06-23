@@ -91,7 +91,8 @@ func _physics_process(delta):
 	# gravity
 	if not is_on_floor():
 		velocity.y += gravity * delta
-		was_in_air = true
+		if velocity.y >= 300:
+			was_in_air = true
 		if coyote_timer.is_stopped():
 			coyote_timer.start()
 	
@@ -100,6 +101,8 @@ func _physics_process(delta):
 		if jump_available:
 			velocity.y = jump_velocity
 			jumped = true
+			$jump.pitch_scale = randf_range(0.9, 1.1)
+			$jump.play()
 			if not attacking:
 				sprite.play("jump")
 		
@@ -121,9 +124,9 @@ func _physics_process(delta):
 		jump_available = true
 		coyote_timer.stop()
 		if was_in_air:
-			if gm.chosen_location == "none" or "meadow":
+			if gm.chosen_location == "none" or gm.chosen_location == "meadow":
 				$land_grass.pitch_scale = randf_range(0.9, 1.1)
-				$land_grass.play()
+				$land_grass.play(0.07)
 			if gm.chosen_location == "cave":
 				$land_stone.pitch_scale = randf_range(0.9, 1.1)
 				$land_stone.play()
@@ -131,10 +134,7 @@ func _physics_process(delta):
 				$land_cloud.pitch_scale = randf_range(0.9, 1.1)
 				$land_cloud.play()
 			was_in_air = false
-			if gm.chosen_location != "beans":
-				$"../Path2D/PathFollow2D/Camera2D".shake(0.2, 1, 0.2)
-			else:
-				$"../Camera2D".shake(0.2, 1, 0.2)
+
 
 	if Input.is_action_just_pressed("attack") and not attacking and gm.chosen_weapon == "sword":
 		attack()
@@ -157,6 +157,7 @@ func _physics_process(delta):
 			atk_area.position.x = 60
 		if is_on_floor() and not attacking:
 			sprite.play("run")
+
 	
 	if !direction:
 		velocity.x = move_toward(velocity.x, 0, decel)

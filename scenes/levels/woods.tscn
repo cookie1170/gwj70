@@ -485,6 +485,7 @@ scale = Vector2(4, 4)
 texture = ExtResource("5_u5tkg")
 
 [node name="giant" type="AnimatedSprite2D" parent="."]
+visible = false
 position = Vector2(4950, -300)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_modb6")
@@ -493,6 +494,7 @@ frame_progress = 0.952988
 script = ExtResource("8_chome")
 
 [node name="sasquatch" type="AnimatedSprite2D" parent="."]
+visible = false
 position = Vector2(4700, -129)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_n1l2c")
@@ -500,6 +502,7 @@ frame_progress = 0.833551
 script = ExtResource("11_uf3rg")
 
 [node name="faerie" type="AnimatedSprite2D" parent="."]
+visible = false
 position = Vector2(4800, -50)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_m8fih")

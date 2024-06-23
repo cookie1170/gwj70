@@ -9,7 +9,6 @@ func _ready():
 
 func _physics_process(delta):
 	position = $"../Path2D2/PathFollow2D".position
-	print($"../Path2D2/PathFollow2D".progress_ratio)
 	if moving:
 		var tween = get_tree().create_tween()
 		tween.tween_property($"../Path2D2/PathFollow2D", "progress_ratio", 1.1, 4.5)
