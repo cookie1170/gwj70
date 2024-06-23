@@ -132,9 +132,9 @@ func _physics_process(delta):
 				$land_cloud.play()
 			was_in_air = false
 			if gm.chosen_location != "beans":
-				$"../Path2D/PathFollow2D/Camera2D".shake(0.1, 1, 0.1)
+				$"../Path2D/PathFollow2D/Camera2D".shake(0.2, 1, 0.2)
 			else:
-				$"../Camera2D".shake(0.05, 2.5, 2.5)
+				$"../Camera2D".shake(0.2, 1, 0.2)
 
 	if Input.is_action_just_pressed("attack") and not attacking and gm.chosen_weapon == "sword":
 		attack()
