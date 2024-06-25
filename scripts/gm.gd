@@ -25,3 +25,10 @@ func _dialogic_signal(argument):
 		chosen_location = "beans"
 	if argument == "sword" or argument == "axe" or argument == "bow":
 		chosen_weapon = argument
+	if argument == "restart":
+		transition.change_scene("res://scenes/levels/woods.tscn")
+		chosen_weapon = "none"
+		chosen_location = "none"
+		can_move = true
+	if argument == "quit":
+		get_tree().quit()

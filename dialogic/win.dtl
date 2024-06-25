@@ -1,2 +1,8 @@
+[signal arg="off"]
 narrator: Congratulations! You beat the game.
 narrator: You can replay it to see the other paths.
+- Restart
+	[signal arg="restart"]
+	[signal arg="on"]
+- Quit
+	[signal arg="quit"]

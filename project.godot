@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="godot wild jam 70"
+config/name="Your folklore adventure"
 run/main_scene="res://scenes/levels/woods.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 boot_splash/bg_color=Color(0.0784314, 0.133333, 0.25098, 1)
@@ -22,8 +22,8 @@ config/icon="res://gwj icon.svg"
 gm="*res://scripts/gm.gd"
 transition="*res://scenes/reusable/transition.tscn"
 GuiTransitions="*res://addons/simple-gui-transitions/singleton.gd"
-Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 BgMusic="*res://scenes/reusable/bg_music.tscn"
+Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 
 [dialogic]
 

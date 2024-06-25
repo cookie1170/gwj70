@@ -63,7 +63,7 @@ func get_hit_two():
 		health -= 2
 		if health <= 0:
 			queue_free()
-			Dialogic.start_timeline("win")
+			Dialogic.start("win")
 		var heart_1 = hearts.front()
 		if is_instance_valid(heart_1):
 			heart_1.play("heart_hit")

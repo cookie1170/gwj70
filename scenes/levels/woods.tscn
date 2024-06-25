@@ -536,8 +536,8 @@ position = Vector2(4800, -50)
 rotation = -2.72337
 
 [connection signal="body_entered" from="TileMap/water" to="TileMap/water" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@25075" to="TileMap/@Area2D@25075" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@25076" to="TileMap/@Area2D@25076" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@25077" to="TileMap/@Area2D@25077" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@25078" to="TileMap/@Area2D@25078" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@23696" to="TileMap/@Area2D@23696" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@23697" to="TileMap/@Area2D@23697" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@23698" to="TileMap/@Area2D@23698" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@23699" to="TileMap/@Area2D@23699" method="_on_body_entered"]
 [connection signal="frame_changed" from="giant" to="giant" method="_on_frame_changed"]
